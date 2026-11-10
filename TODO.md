@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [███████░░░░░░░░░░░░░░░░░░░░░░░] 9/40 (22%) · P0 5/5 · P1 0/9 · P2 4/21 · P3 0/5
+**Progress:** [█████████░░░░░░░░░░░░░░░░░░░░░] 12/40 (30%) · P0 5/5 · P1 0/9 · P2 4/21 · P3 3/5
 
 ## How this was checked
 
@@ -212,15 +212,16 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 ## P3 — Docs and repo hygiene
 
-- [ ] **T35 Rewrite `README.md` for users.** Add the one-step install line the validator asks for (`/plugin install core-skills --marketplace bassemZohdy/core-skills`), a one-line "use it when" per skill, the invocation forms (`/core-skills:<skill>` in Claude Code, `$<skill>` in Codex), and a link to `docs/INSTALL.md`. Move migration history out (T05).
-- [ ] **T36 Make `docs/INSTALL.md` exact.**
+- [x] **T35 Rewrite `README.md` for users.** Add the one-step install line the validator asks for (`/plugin install core-skills --marketplace bassemZohdy/core-skills`), a one-line "use it when" per skill, the invocation forms (`/core-skills:<skill>` in Claude Code, `$<skill>` in Codex), and a link to `docs/INSTALL.md`. Move migration history out (T05).
+- [x] **T36 Make `docs/INSTALL.md` exact.**
   - Claude local testing: `claude --plugin-dir ./plugin`, then `/reload-plugins` after edits (replaces "test with Claude Code's plugin loader").
   - Codex: `codex plugin marketplace add bassemZohdy/core-skills`, then `/plugins` in the CLI (replaces "Add the repository marketplace in a supported plugin environment"). The local CLI (0.167.0) also has `codex plugin add`, which the docs do not mention.
   - Give the actual copy command for the skills-only install and the collision warning from T09.
   - Say `python scripts/check.py` for Windows, where `python3` may not exist.
 - [ ] **T37 Run and record a real install on both hosts.** Add the marketplace, install, confirm eight skills are listed, invoke one. Record host versions in `docs/RELEASE-CHECKLIST.md` and tick line 9.
 - [ ] **T38 Add `CHANGELOG.md` and tag releases.** There are no tags; the first release should be tagged after P0 and P1.
-- [ ] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
+  - **Status (partial):** `CHANGELOG.md` added (Unreleased section). Tagging waits for the P0 and P1 tasks to finish.
+- [x] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
 
 ---
 
