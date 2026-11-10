@@ -1,16 +1,86 @@
 ---
 name: evaluate
-description: Evaluate options or artifacts against explicit criteria, tradeoffs and evidence.
+description: Evaluate the fitness, quality, or suitability of one option, or compare multiple options against explicit criteria. Use for selecting platforms, technologies, designs, products, approaches, or trade-offs; apply mandatory constraints before optional scoring and ground judgments in evidence.
+license: Apache-2.0
 ---
 
 # Evaluate
 
-Define scope and alternatives. Choose relevant, non-overlapping criteria with weights only where defensible. Assess each choice against the same criteria, distinguish measured results from judgment, and test sensitivity of consequential assumptions. Explain tradeoffs and recommendation without false numerical precision.
+Produce a defensible assessment of one or more options relative to an explicit purpose and set of decision criteria. Evaluate may be qualitative or quantitative. Do not force a heavyweight decision-analysis workflow on simple requests.
 
-## Shared boundaries
+## Inputs
 
-- Operate within the user-authorized task and tools; do not assume permission to publish, commit or deploy.
-- Keep this skill independent of any specific model, advisor, subagent, workflow engine or sibling skill.
-- Identify inputs and result clearly, give supporting evidence and meaningful limitations.
-- Parallelize only truly independent work when the host supports delegation; do not assume subagents inherit this skill.
-- Do not present proposed or unexecuted checks as completed work.
+- **Decision or target (required):** What is being assessed and for what purpose.
+- **Options (optional):** One or more candidates; discover others only if requested or necessary.
+- **Requirements and context (optional):** Stakeholders, intended environment, current solution, use case, constraints, version, timeframe.
+- **Criteria and priorities (optional):** Must-have constraints, preferences, weights, success measures, budget.
+- **Evidence and limits (optional):** Existing documentation, research access, scoring method, output format.
+
+Infer sensible non-exclusionary criteria if absent and label them as proposed assumptions. Do not invent organization-specific hard gates, vendor support claims, cost figures, or approved weights. Ask a focused question when a missing high-impact preference would otherwise cause an arbitrary winner; otherwise produce conditional findings.
+
+## Workflow
+
+### 1. Define the decision
+
+- State the objective, evaluated scope, options, baseline/incumbent where relevant, and what a useful decision requires.
+- Distinguish selection, a single-option assessment, and a descriptive comparison.
+- Establish versions, deployment conditions, cost horizon, and deal-breakers when relevant. Avoid comparing mismatched product editions or incompatible scopes.
+
+### 2. Establish criteria
+
+- Separate **mandatory gates** (eligibility) from **weighted or qualitative preferences** (relative suitability).
+- Make criteria distinct, relevant, and measurable or anchored in observable behavior. Avoid double counting correlated factors.
+- Surface unknown stakeholder preferences and assumptions. Require user confirmation before treating proposed criteria as decisive exclusions.
+- Use weights only when their added value exceeds their complexity. If used, document scale, anchors, weights, and rationale; weights reflect stakeholder priorities and sum to 100%. Do not silently change accepted weights.
+- Treat cost, operational effort, lock-in, and risk explicitly if material, while stating what was not assessed.
+
+### 3. Gather evidence
+
+- Use information provided or an available **Research** capability when authorized. Research is optional; insufficient evidence may yield conditional findings.
+- For each material criterion, record the evidence, source/date/version, scope fit, uncertainty, and contradictory findings.
+- Separate documented availability, vendor statements, tested operation, inferred suitability, and unknowns. Do not reward verbose documentation or penalize a candidate solely for inaccessible information.
+- Keep a neutral descriptive feature inventory separate from criterion attainment scores.
+
+### 4. Assess eligibility and performance
+
+- Apply identical gate definitions to all options. Use **PASS**, **FAIL**, and **UNKNOWN**. Unknown is not failure and cannot be silently waived. A failed mandatory gate cannot be compensated by a high weighted score.
+- Evaluate remaining options against the same criteria and anchored scale. Attach a short evidence-backed rationale to consequential judgments.
+- Mark unverified requirements as unknown; **do not silently score missing evidence as zero**. If a bounded score is needed, present an explicit range or conditional scenario.
+- If quantitative scoring is justified, compute scores deterministically with available calculation tools; verify arithmetic and weight normalization. Distinguish score (fitness) from confidence in its supporting evidence.
+- Examine sensitivity to plausible weights, low-confidence claims, disputed gates, and cost assumptions. Flag near ties; do not manufacture a decisive ranking.
+
+### 5. Synthesize and quality gate
+
+- Lead with a recommendation only when the evidence and known priorities support one; otherwise present a qualified shortlist, conditional winner, or clear no-decision.
+- Name strongest reasons, disqualifiers, trade-offs, total-cost assumptions if applicable, and the specific evidence or test that could reverse the result.
+- Cross-check that criteria and weights precede scoring, gates precede ranking, all options use the same scope, critical scores have evidence, the conclusion survives or discloses sensitivity, and no arithmetic or source claim is invented.
+- Perform a bounded correction if something material can be fixed. Do not run an endless evaluate/research cycle.
+
+## Outcomes
+
+- **Evaluated:** The assessment answers the decision, with appropriate caveats.
+- **Conditional:** The preferred option depends on unresolved assumptions, weights, or evidence.
+- **Inconclusive:** No defensible preference can be established from available information.
+- **Blocked:** The target or essential decision context is missing and cannot be reasonably inferred.
+
+Logical outcomes only; no required runtime state machine.
+
+## Output guidance
+
+Default to a concise explanation of criteria, material evidence, and a recommendation or no-decision. Add a comparison table, gate matrix, scoring matrix, cost scenarios, or sensitivity analysis only when complexity warrants them or the user asks. State which criteria were assumed, not assessed, or user-approved. For scored evaluations, include anchored scale, weights, evidence links, missing data handling, and ranking sensitivity.
+
+Do not require the original `eval/` workspace, status files, Python scorer, exports, orchestration, or user-approval step at every stage. Those belong to specialized multi-stage evaluation workflows.
+
+## Boundaries
+
+- **Research** establishes external evidence and provenance; Evaluate owns criteria, gates, judgments, and recommendation.
+- **Analyze** explains structures and causes; Evaluate applies criteria to judge suitability.
+- **Review** identifies defects and improvements in an artifact; Evaluate assesses fitness against a purpose, optionally among alternatives.
+- **Validate** checks explicit conformance requirements; Evaluate may use validation results but is not reducible to pass/fail tests.
+- **Define** clarifies terminology and boundaries without owning the choice.
+
+## Examples
+
+- **Single option:** Assess a proposed architecture against security, operations, scalability, and budget expectations, noting unknown criteria.
+- **Multiple options:** Apply hard air-gap eligibility before scoring vendors on usability, cost, and support.
+- **Incomplete evidence:** Avoid declaring a winner when a key release claim is unverified or weight sensitivity reverses the order.
