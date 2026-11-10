@@ -80,7 +80,7 @@ Default output is a short answer with decisive sources, dates when material, and
 - **Analyze** interprets evidence and explores relationships; Research owns locating and judging external evidence. Either may call the other when available and authorized; neither requires the other.
 - **Evaluate** compares options or assesses suitability against criteria. Research supplies evidence but does not own criteria, weights, scores, eligibility, or ranking.
 - **Review** critiques artifacts; **Validate** checks explicit acceptance criteria. A research quality gate is not a separate mandatory Validate invocation.
-- Domain-specific research, numeric confidence models, delegation protocols, and structured evidence ledgers may extend this skill when the task warrants them. Do not inherit the original eval-skills `eval/` contract, six-label conversion, package manifest, or workflow scripts.
+- Domain-specific research, numeric confidence models, delegation protocols, and structured evidence ledgers may extend this skill when the task warrants them. Do not require a workspace, a fixed verdict-label conversion, a package manifest, or workflow scripts for ordinary use.
 
 ## Examples
 

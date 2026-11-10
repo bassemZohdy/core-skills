@@ -2,6 +2,8 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
+**Progress:** [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 2/40 (5%) · P0 2/5 · P1 0/9 · P2 0/21 · P3 0/5
+
 ## How this was checked
 
 | Check | Result |
@@ -31,7 +33,7 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
 
 ## P0 — Fix what is wrong today
 
-- [ ] **T01 Remove upstream residue from skill bodies.** These sentences refer to things that do not exist in this repo, so the agent has no referent for them.
+- [x] **T01 Remove upstream residue from skill bodies.** These sentences refer to things that do not exist in this repo, so the agent has no referent for them.
   - `plugin/skills/evaluate/SKILL.md:72` — "Do not require the original `eval/` workspace, status files, Python scorer, exports, orchestration…"
   - `plugin/skills/research/SKILL.md:83` — "Do not inherit the original eval-skills `eval/` contract, six-label conversion, package manifest, or workflow scripts."
   - `plugin/skills/investigate/SKILL.md:120` — "**Interview:** An optional inquiry method or future specialized skill" (no such skill).
@@ -47,7 +49,7 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
   - Option A (recommended while pre-1.0): drop `version` from the Claude manifest so installs track commits. `check.py` currently requires it in both manifests and Codex requires it, so relax the Claude check only.
   - Option B: keep it and bump on every change to `plugin/`, enforced in CI (T33).
 
-- [ ] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
+- [x] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
 
 ---
 

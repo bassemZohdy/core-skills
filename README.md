@@ -16,6 +16,6 @@ Each skill works independently; no skill requires a specific agent model, adviso
 
 ## Migration status
 
-All eight skill definitions are migrated byte-for-byte from `bassemZohdy/ai-skills` main. Analyze, Research, Evaluate, Plan, and Investigate originated in merged PRs #21–#24; Define, Review, and Validate were already present on main. Editorial/structural review was done upstream, but cross-agent behavioral evaluation remains pending. The source repository is unchanged. No repository-wide license is asserted until provenance and licensing are reviewed.
+The eight skill definitions were migrated from `bassemZohdy/ai-skills` main and may since have been edited here. See [docs/PROVENANCE.md](docs/PROVENANCE.md) for the upstream commit, per-skill status, and review status. Cross-agent behavioral evaluation remains pending. No repository-wide license is asserted until provenance and licensing are reviewed.
 
 Run `python3 scripts/check.py` for structural checks; this does not prove behavioral compatibility.
