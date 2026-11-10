@@ -1,9 +1,18 @@
 {
   "name": "core-skills",
-  "description": "Eight reusable, platform-agnostic foundational skills",
+  "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating.",
   "author": {
     "name": "Bassem Zohdy"
   },
   "homepage": "https://github.com/bassemZohdy/core-skills",
-  "license": "Apache-2.0"
+  "repository": "https://github.com/bassemZohdy/core-skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "skills",
+    "reasoning",
+    "research",
+    "review",
+    "validation",
+    "planning"
+  ]
 }

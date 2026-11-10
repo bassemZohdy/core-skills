@@ -1,7 +1,7 @@
 {
   "name": "core-skills",
   "version": "0.1.0",
-  "description": "Eight portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating.",
+  "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating.",
   "author": {
     "name": "Bassem Zohdy"
   },
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Core Skills",
     "shortDescription": "Reusable skills for clear, evidence-based work",
-    "longDescription": "Eight independent, portable instruction skills: Define, Research, Analyze, Evaluate, Review, Validate, Plan, and Investigate. Each skill focuses on a distinct reasoning or quality task, scopes its evidence and conclusions, and can run without a particular model, vendor, orchestration system, or peer skill. The package contains no MCP server, app connection, executable tool, remote service, or background automation. Results depend on host tools, available evidence, and the user's task.",
+    "longDescription": "Independent, portable instruction skills: Define, Research, Analyze, Evaluate, Review, Validate, Plan, and Investigate. Each skill focuses on a distinct reasoning or quality task, scopes its evidence and conclusions, and can run without a particular model, vendor, orchestration system, or peer skill. The package contains no MCP server, app connection, executable tool, remote service, or background automation. Results depend on host tools, available evidence, and the user's task.",
     "developerName": "Bassem Zohdy",
     "category": "Productivity",
     "capabilities": [

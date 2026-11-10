@@ -68,6 +68,13 @@ for label, marketplace in (("Claude", market_claude), ("Codex", market_codex)):
         source = entry.get("source")
         expected = "./plugin" if label == "Claude" else {"source": "local", "path": "./plugin"}
         check(source == expected, f"{label}: wrong marketplace path")
+descriptions = {claude.get("description"), codex.get("description"),
+                market_claude.get("metadata", {}).get("description"),
+                *(e.get("description") for e in market_claude.get("plugins", []) if isinstance(e, dict))}
+check(len(descriptions) == 1, f"manifest descriptions differ: {len(descriptions)} distinct values")
+for key in ("repository", "keywords"):
+    check(claude.get(key) is not None and claude.get(key) == codex.get(key),
+          f"Claude and Codex manifests differ on {key}")
 check((ROOT / "LICENSE").exists(), "missing LICENSE")
 check((ROOT / "docs" / "INSTALL.md").exists(), "missing install instructions")
 if errors:
@@ -75,4 +82,4 @@ if errors:
     for error in errors:
         print(" - " + error)
     sys.exit(1)
-print("PASS: 8 skill definitions, metadata, licenses, manifests, marketplaces, paths, and install docs")
+print(f"PASS: {len(NAMES)} skill definitions, metadata, licenses, manifests, marketplaces, paths, and install docs")

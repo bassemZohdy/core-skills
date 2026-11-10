@@ -23,6 +23,6 @@ The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and reference
 
 ## Distribution and test status
 
-All eight skills use Agent Skills-compatible `SKILL.md` frontmatter; plugin manifests do not invoke tools themselves. Run `python3 scripts/check.py` to validate paths, metadata and manifest links before release. This checker does not launch Claude or Codex and cannot establish runtime behavior or directory publication. Do not describe this repository as marketplace-approved until submission succeeds.
+All skills use Agent Skills-compatible `SKILL.md` frontmatter; plugin manifests do not invoke tools themselves. Run `python3 scripts/check.py` to validate paths, metadata and manifest links before release. This checker does not launch Claude or Codex and cannot establish runtime behavior or directory publication. Do not describe this repository as marketplace-approved until submission succeeds.
 
 Official references: [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins) and [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins).

@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 5/40 (12%) · P0 5/5 · P1 0/9 · P2 0/21 · P3 0/5
+**Progress:** [██████░░░░░░░░░░░░░░░░░░░░░░░░] 8/40 (20%) · P0 5/5 · P1 0/9 · P2 3/21 · P3 0/5
 
 ## How this was checked
 
@@ -177,8 +177,8 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 ## P2 — Packaging and manifests
 
-- [ ] **T29 Align the Claude manifest with the Codex one.** `plugin/.claude-plugin/plugin.json` lacks `license`, `repository`, and `keywords`, and its description ("Eight reusable, platform-agnostic foundational skills") differs from the other three files. Use one description string everywhere.
-- [ ] **T30 Stop hardcoding "eight".** The count appears in both manifests, both marketplace descriptions, the Codex `longDescription`, `README.md`, `docs/INSTALL.md`, and the `check.py` PASS message. Drop the number from the prose or have `check.py` verify it.
+- [x] **T29 Align the Claude manifest with the Codex one.** `plugin/.claude-plugin/plugin.json` lacks `license`, `repository`, and `keywords`, and its description ("Eight reusable, platform-agnostic foundational skills") differs from the other three files. Use one description string everywhere.
+- [x] **T30 Stop hardcoding "eight".** The count appears in both manifests, both marketplace descriptions, the Codex `longDescription`, `README.md`, `docs/INSTALL.md`, and the `check.py` PASS message. Drop the number from the prose or have `check.py` verify it.
 - [ ] **T30a Fix the Codex manifest and marketplace against the current docs.**
   - `interface.shortDescription` is 46 characters; the submission page gives a 30-character limit **(verify)**.
   - `interface.capabilities` includes "Interactive", which appears in no doc example; values look free-form **(verify)**.
@@ -204,7 +204,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Add `claude plugin validate . --strict` if it runs without credentials **(verify)**.
   - If T04 option B is chosen, fail when `plugin/` changes without a version bump.
   - Add Dependabot for the action versions.
-- [ ] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
+- [x] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
 
 ---
 

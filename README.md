@@ -1,6 +1,6 @@
 # core-skills
 
-Eight independent, platform-agnostic reusable skills: define, research, analyze, evaluate, review, validate, plan, investigate.
+Independent, platform-agnostic reusable skills: define, research, analyze, evaluate, review, validate, plan, investigate.
 
 ## Layout
 
