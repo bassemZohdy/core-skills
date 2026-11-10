@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [██████░░░░░░░░░░░░░░░░░░░░░░░░] 8/40 (20%) · P0 5/5 · P1 0/9 · P2 3/21 · P3 0/5
+**Progress:** [███████░░░░░░░░░░░░░░░░░░░░░░░] 9/40 (22%) · P0 5/5 · P1 0/9 · P2 4/21 · P3 0/5
 
 ## How this was checked
 
@@ -197,13 +197,15 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Check description parity across the four manifest files, the Claude manifest license, and the Codex listing limits from T30a.
   - Check that every skill named in another skill's body exists (this would have caught "Interview"), and that the pairs from T10 reference each other.
   - Replace the `> 600` characters heuristic (`:40`).
-- [ ] **T32 Test the checker.** It has no tests, so nothing shows it fails when it should. Move the logic into functions and add fixtures for a broken name, a missing key, an over-long description, and a wrong marketplace path, each expected to fail.
+  - **Status (partial):** done — flat-YAML frontmatter parsing, Agent Skills limits, skill discovery, marketplace source resolution, manifest parity, unknown-skill relationship check, stub-body check. Remaining — reciprocal-reference check (needs T10) and Codex listing limits (needs the T30a re-verification).
+- [x] **T32 Test the checker.** It has no tests, so nothing shows it fails when it should. Move the logic into functions and add fixtures for a broken name, a missing key, an over-long description, and a wrong marketplace path, each expected to fail.
 - [ ] **T33 Extend CI (`.github/workflows/validate.yml`).**
   - It triggers on both `push` and `pull_request`, so every PR branch runs twice; limit `push` to `main`.
   - Add the official validator, `skills-ref validate` per skill (from the agentskills repository).
   - Add `claude plugin validate . --strict` if it runs without credentials **(verify)**.
   - If T04 option B is chosen, fail when `plugin/` changes without a version bump.
   - Add Dependabot for the action versions.
+  - **Status (partial):** done — `push` limited to `main`, checker tests run in CI, `.github/dependabot.yml` added. Not done — `skills-ref validate` (installing it from an external git repo was blocked by the session's permission classifier, so it is unverified; install it manually or grant the permission), `claude plugin validate . --strict` in CI (needs the Claude CLI installed on the runner), version-bump check (not needed under T04 option A).
 - [x] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
 
 ---
