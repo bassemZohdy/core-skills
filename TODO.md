@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 2/40 (5%) · P0 2/5 · P1 0/9 · P2 0/21 · P3 0/5
+**Progress:** [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3/40 (7%) · P0 3/5 · P1 0/9 · P2 0/21 · P3 0/5
 
 ## How this was checked
 
@@ -39,7 +39,7 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
   - `plugin/skills/investigate/SKILL.md:120` — "**Interview:** An optional inquiry method or future specialized skill" (no such skill).
   - Done when: `grep -n "eval/\|eval-skills\|future specialized" plugin/skills` returns nothing.
 
-- [ ] **T02 Resolve the licensing contradiction.** `README.md:19` says "No repository-wide license is asserted", and `docs/RELEASE-CHECKLIST.md:10` leaves licensing undecided. But the root `LICENSE` is Apache-2.0 (identical to upstream), every `SKILL.md` declares `license: Apache-2.0`, the Codex manifest declares it, and `check.py` enforces it.
+- [x] **T02 Resolve the licensing contradiction.** `README.md:19` says "No repository-wide license is asserted", and `docs/RELEASE-CHECKLIST.md:10` leaves licensing undecided. But the root `LICENSE` is Apache-2.0 (identical to upstream), every `SKILL.md` declares `license: Apache-2.0`, the Codex manifest declares it, and `check.py` enforces it.
   - State the license in the README, tick the checklist item, add `"license": "Apache-2.0"` to `plugin/.claude-plugin/plugin.json`.
   - Add a copyright/attribution line (upstream has no `NOTICE` file, so there is none to carry over).
 

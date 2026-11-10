@@ -7,5 +7,5 @@
 - [ ] Complete behavioral evaluations against realistic tasks and review cross-skill boundaries.
 - [ ] Add automated behavior/evaluation coverage beyond structural checks.
 - [ ] Confirm plugin installation on supported Claude and Codex versions.
-- [ ] Decide and verify project-wide licensing and attribution.
+- [x] Decide and verify project-wide licensing and attribution (Apache-2.0; `LICENSE` identical to upstream; README states license and author).
 - [ ] Publish only after release checks pass.

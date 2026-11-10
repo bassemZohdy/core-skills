@@ -16,6 +16,10 @@ Each skill works independently; no skill requires a specific agent model, adviso
 
 ## Migration status
 
-The eight skill definitions were migrated from `bassemZohdy/ai-skills` main and may since have been edited here. See [docs/PROVENANCE.md](docs/PROVENANCE.md) for the upstream commit, per-skill status, and review status. Cross-agent behavioral evaluation remains pending. No repository-wide license is asserted until provenance and licensing are reviewed.
+The eight skill definitions were migrated from `bassemZohdy/ai-skills` main and may since have been edited here. See [docs/PROVENANCE.md](docs/PROVENANCE.md) for the upstream commit, per-skill status, and review status. Cross-agent behavioral evaluation remains pending.
 
 Run `python3 scripts/check.py` for structural checks; this does not prove behavioral compatibility.
+
+## License
+
+Licensed under the Apache License 2.0 ([LICENSE](LICENSE)). Each `SKILL.md` declares `license: Apache-2.0`, and both plugin manifests carry the same identifier. Maintained by Bassem Zohdy (author in the plugin manifests). The skills were migrated from `bassemZohdy/ai-skills`, which uses the same license; see [docs/PROVENANCE.md](docs/PROVENANCE.md).

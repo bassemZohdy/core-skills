@@ -5,5 +5,6 @@
   "author": {
     "name": "Bassem Zohdy"
   },
-  "homepage": "https://github.com/bassemZohdy/core-skills"
+  "homepage": "https://github.com/bassemZohdy/core-skills",
+  "license": "Apache-2.0"
 }

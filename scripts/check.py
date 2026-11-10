@@ -54,6 +54,7 @@ for label, manifest in (("Claude", claude), ("Codex", codex)):
 check(claude.get("version") == codex.get("version"), "plugin versions differ")
 check(codex.get("skills") == "./skills/", "Codex skill path must be ./skills/")
 check(codex.get("license") == "Apache-2.0", "Codex manifest license mismatch")
+check(claude.get("license") == "Apache-2.0", "Claude manifest license mismatch")
 for label, marketplace in (("Claude", market_claude), ("Codex", market_codex)):
     check(marketplace.get("name") == "core-skills", f"{label} marketplace name mismatch")
     entries = marketplace.get("plugins", [])
