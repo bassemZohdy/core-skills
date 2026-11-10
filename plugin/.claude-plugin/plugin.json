@@ -1,0 +1,9 @@
+{
+  "name": "core-skills",
+  "version": "0.1.0",
+  "description": "Eight reusable, platform-agnostic foundational skills",
+  "author": {
+    "name": "Bassem Zohdy"
+  },
+  "homepage": "https://github.com/bassemZohdy/core-skills"
+}
