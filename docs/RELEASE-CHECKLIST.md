@@ -9,3 +9,4 @@
 - [ ] Confirm plugin installation on supported Claude and Codex versions.
 - [x] Decide and verify project-wide licensing and attribution (Apache-2.0; `LICENSE` identical to upstream; README states license and author).
 - [ ] Publish only after release checks pass.
+- [ ] Versioning: the Claude manifest intentionally has no `version` so installs track the commit (decision D2 in `TODO.md`); the Codex manifest requires one and stays at `0.1.0`. Revisit when tagging the first release.

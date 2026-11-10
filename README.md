@@ -8,7 +8,7 @@ Canonical skill definitions are in `plugin/skills/<name>/SKILL.md`. The Claude p
 
 ## Installation
 
-For Claude Code, use the local plugin rooted at `plugin/` or copy `plugin/skills/*` to `~/.claude/skills/`. For Codex and other Agent Skills hosts, copy the skill directories to `~/.agents/skills/` or the corresponding configured location. Marketplace publishing has not been verified.
+For Claude Code, use the local plugin rooted at `plugin/` or copy `plugin/skills/*` to `~/.claude/skills/`. For Codex and other Agent Skills hosts, copy the skill directories to `~/.agents/skills/` or the corresponding configured location. Marketplace installation (Claude and Codex) is documented in [docs/INSTALL.md](docs/INSTALL.md) but has not yet been tested end to end, and marketplace publishing has not been verified.
 
 ## Principles
 

@@ -4,6 +4,8 @@ One source of skill definitions at `plugin/skills/`, packaged for both Claude an
 
 ## Claude Code
 
+> **Untested:** the marketplace commands below follow the Claude Code documentation but have not yet been run against this repository (see `docs/RELEASE-CHECKLIST.md`). `claude plugin validate` passes for both the marketplace and the plugin, which checks the manifests only, not installation.
+
 From Claude Code, add this GitHub repository as a marketplace and install the plugin:
 
 ```text
@@ -14,6 +16,8 @@ From Claude Code, add this GitHub repository as a marketplace and install the pl
 For a local clone, test with Claude Code's plugin loader against `./plugin`. After installing, inspect the skill list and run one targeted prompt per skill.
 
 ## Codex / ChatGPT plugin-capable environments
+
+> **Untested:** the Codex packaging has not been installed in any Codex host yet, and its manifest fields have not been checked by a Codex validator.
 
 The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and references `./skills/`. The local marketplace file is `.agents/plugins/marketplace.json`. Add the repository marketplace in a supported plugin environment; the host controls installation and activation. A plain skills-only alternative is copying `plugin/skills/*` to a supported user-level skills directory, such as `~/.agents/skills/`.
 

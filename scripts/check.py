@@ -50,8 +50,11 @@ market_codex = load_json(ROOT / ".agents" / "plugins" / "marketplace.json")
 for label, manifest in (("Claude", claude), ("Codex", codex)):
     check(manifest.get("name") == "core-skills", f"{label}: wrong plugin name")
     check(bool(manifest.get("description")), f"{label}: missing description")
-    check(bool(re.fullmatch(r"\d+\.\d+\.\d+", manifest.get("version", ""))), f"{label}: invalid version")
-check(claude.get("version") == codex.get("version"), "plugin versions differ")
+    # The Claude manifest deliberately omits `version` so installs track the commit
+    # (a pinned version blocks updates until the string changes). Codex requires one.
+    check((label == "Claude" and "version" not in manifest)
+          or bool(re.fullmatch(r"\d+\.\d+\.\d+", manifest.get("version", ""))), f"{label}: invalid version")
+check("version" not in claude or claude["version"] == codex.get("version"), "plugin versions differ")
 check(codex.get("skills") == "./skills/", "Codex skill path must be ./skills/")
 check(codex.get("license") == "Apache-2.0", "Codex manifest license mismatch")
 check(claude.get("license") == "Apache-2.0", "Claude manifest license mismatch")

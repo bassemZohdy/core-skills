@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3/40 (7%) · P0 3/5 · P1 0/9 · P2 0/21 · P3 0/5
+**Progress:** [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 5/40 (12%) · P0 5/5 · P1 0/9 · P2 0/21 · P3 0/5
 
 ## How this was checked
 
@@ -43,11 +43,12 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
   - State the license in the README, tick the checklist item, add `"license": "Apache-2.0"` to `plugin/.claude-plugin/plugin.json`.
   - Add a copyright/attribution line (upstream has no `NOTICE` file, so there is none to carry over).
 
-- [ ] **T03 Resolve the marketplace-status contradiction.** `README.md:11` says "Marketplace publishing has not been verified"; `docs/INSTALL.md:9-12` presents marketplace install commands as fact. Either run the install (see T37) and record the versions tested, or label the commands untested in both files.
+- [x] **T03 Resolve the marketplace-status contradiction.** `README.md:11` says "Marketplace publishing has not been verified"; `docs/INSTALL.md:9-12` presents marketplace install commands as fact. Either run the install (see T37) and record the versions tested, or label the commands untested in both files.
 
-- [ ] **T04 Decide the version policy before the first user installs.** `plugin.json` pins `"version": "0.1.0"`. Per the Claude Code docs, a pinned version "keeps every user on the cached copy until its author changes the string, however many commits they push."
+- [x] **T04 Decide the version policy before the first user installs.** `plugin.json` pins `"version": "0.1.0"`. Per the Claude Code docs, a pinned version "keeps every user on the cached copy until its author changes the string, however many commits they push."
   - Option A (recommended while pre-1.0): drop `version` from the Claude manifest so installs track commits. `check.py` currently requires it in both manifests and Codex requires it, so relax the Claude check only.
   - Option B: keep it and bump on every change to `plugin/`, enforced in CI (T33).
+  - Done: option A applied (decision D2, reversible). `claude plugin validate ./plugin` now reports the warning "No version specified"; accepted. Codex manifest keeps `0.1.0`.
 
 - [x] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
 
