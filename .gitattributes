@@ -1,0 +1,2 @@
+# Normalize line endings so hashes match across platforms (skills are compared against upstream by blob hash).
+* text=auto eol=lf
