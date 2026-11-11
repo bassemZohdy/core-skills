@@ -5,7 +5,7 @@ All notable changes to this repository. No release has been tagged yet; the firs
 ## Unreleased
 
 ### Added
-- `plugin/evals/`: 16 behavior cases and 80 trigger cases; `docs/EVALS.md` records how to run them and the 2026-11-11 results.
+- `plugin/evals/`: 16 behavior cases and 128 trigger cases; `docs/EVALS.md` records how to run them and the 2026-11-11 results.
 - `docs/SMOKE-TEST.md`: install smoke test for Claude Code and Codex in a scratch config directory.
 - `plugin/assets/icon.svg`, referenced as the Codex `composerIcon` and `logo`.
 - Each of `plan` and `evaluate` gained a `references/` template; every skill has a worked example.
