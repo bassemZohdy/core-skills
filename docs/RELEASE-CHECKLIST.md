@@ -11,3 +11,4 @@
 - [ ] Publish only after release checks pass.
 - [ ] Versioning: the Claude manifest intentionally has no `version` so installs are expected to follow the source commit (unverified for this relative-path source; decision D2 in `TODO.md`); the Codex manifest requires one and stays at `0.1.0`. Revisit when tagging the first release.
 - [ ] Act on the baseline (2026-11-11, 16 cases, 1 run per arm, $2.27): mean delta 0.00, skill fired in 6 of 16 with-arm runs; see `TODO.md` T12.
+- [ ] Trigger descriptions rewritten (T06-T08); re-run 2026-11-11 (16 cases, 1 run per arm, $2.40): skill fired 9 of 16 (was 6). Confirm with 3 runs per arm before relying on it.

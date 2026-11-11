@@ -1,6 +1,6 @@
 ---
 name: analyze
-description: Analyze a subject, problem, system, or body of information to explain its components, relationships, causes, implications, and uncertainties using structured, evidence-aware reasoning. Use when the user asks to analyze, investigate why something happens, interpret findings, or understand trade-offs. Do not treat analysis as an automatic request to review, validate, redesign, or implement.
+description: Explain how a subject works or why something happens by breaking it into components, relationships, causes, and trade-offs, using evidence that is already available. Use this skill when the user asks to analyze, explain, interpret findings or data, understand trade-offs, or work out the likely causes of something they have evidence for. Not for gathering missing facts (investigate), picking between options (evaluate), finding defects (review), or checking pass or fail (validate).
 license: Apache-2.0
 ---
 

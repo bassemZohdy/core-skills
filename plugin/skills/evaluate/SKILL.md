@@ -1,6 +1,6 @@
 ---
 name: evaluate
-description: Evaluate the fitness, quality, or suitability of one option, or compare multiple options against explicit criteria. Use for selecting platforms, technologies, designs, products, approaches, or trade-offs; apply mandatory constraints before optional scoring and ground judgments in evidence.
+description: Judge how well one option fits a purpose, or compare several options against explicit criteria and recommend a choice. Use this skill when the user asks which option to pick, whether something is a good fit, to compare vendors, tools, designs, or approaches, to shortlist, or to weigh build versus buy. Applies hard requirements first, then scored preferences, and flags unknowns and near ties. Not for finding defects in an artifact (review) or explaining how something works (analyze).
 license: Apache-2.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Turn a goal, problem, or desired outcome into a practical, sequenced plan with deliverables, dependencies, constraints, risks, and completion criteria. Use when asked to plan a project, migration, implementation, investigation, or other multi-step effort. Planning does not itself authorize execution or orchestration.
+description: Turn a goal into a sequenced plan with deliverables, dependencies, risks, and checks for completion. Use this skill when the user asks to plan, outline an approach, break work into steps or milestones, design a rollout or migration, or work out how to approach a multi-step effort. Produces the plan only and does not run any step. Do not invent deadlines, people, or budgets; ask or state assumptions.
 license: Apache-2.0
 ---
 

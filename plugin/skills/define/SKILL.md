@@ -1,6 +1,6 @@
 ---
 name: define
-description: Keep technical terms and concept boundaries accurate when defining, naming, classifying, or comparing concepts in architecture, APIs, protocols, documentation, and reviews. Reuse established meanings, verify consequential ambiguity, and distinguish project-local definitions from external usage. Apply within the user's task without starting an unsolicited terminology audit.
+description: Settle what a technical term means and where a concept's boundary lies. Use this skill when the user asks what a term means, how two terms or concepts differ, how to name or classify something, whether a term is used correctly in a spec, API, protocol, or document, or when a project-specific meaning might conflict with common usage. Prefer established and project-local meanings over new ones, and verify only when the ambiguity affects the result. Not for looking up sources (research).
 license: Apache-2.0
 ---
 

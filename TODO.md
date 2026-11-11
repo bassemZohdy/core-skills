@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [█████████░░░░░░░░░░░░░░░░░░░░░] 12/40 (30%) · P0 5/5 · P1 0/9 · P2 4/21 · P3 3/5
+**Progress:** [███████████░░░░░░░░░░░░░░░░░░░] 15/40 (37%) · P0 5/5 · P1 3/9 · P2 4/21 · P3 3/5
 
 ## How this was checked
 
@@ -58,7 +58,8 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
 
 Descriptions drive selection; body "Relationships" sections load only after a skill is already chosen, so they cannot prevent a wrong pick.
 
-- [ ] **T06 Rewrite all eight descriptions as triggers.** Lead with what it does, then "Use this skill when…" with the phrases users actually type, including cases where they don't name the skill. Move behavior rules out of the description and into the body. Current clauses to move:
+- [x] **T06 Rewrite all eight descriptions as triggers.** Lead with what it does, then "Use this skill when…" with the phrases users actually type, including cases where they don't name the skill. Move behavior rules out of the description and into the body. Current clauses to move:
+  - **Done 2026-11-11.** All eight descriptions rewritten as triggers, with the behavior clauses left to the bodies. Re-running the same 16 cases (1 run per arm, $2.40): skill fired 6 of 16 to 9 of 16 (review 0/2 to 1/2 and investigate 0/2 to 1/2 gained, and review-separate-bug fired); `investigate-vague-need` went from 0.00 to 1.00 with the skill while the baseline stayed 0.00. Still not firing at all in research (0/2), define-ordinary (correct: no skill needed), analyze-embedded-instruction, plan-circular-dependency, validate-missing-dependency and investigate-timeouts. One run per arm is noisy (`investigate-timeouts-correlation` baseline moved 1.00 to 0.00 with no change to the baseline arm), so confirm with `--runs 3` (T12/T13).
   - analyze: "Do not treat analysis as an automatic request to review, validate, redesign, or implement."
   - investigate: "Do not assume investigation means only root-cause analysis or require an interview for every case."
   - plan: "Planning does not itself authorize execution or orchestration."
@@ -67,14 +68,16 @@ Descriptions drive selection; body "Relationships" sections load only after a sk
   - evaluate: "apply mandatory constraints before optional scoring and ground judgments in evidence."
   - Missing trigger phrases, as a starting list: evaluate — "X vs Y", "which should we choose", "is X a good fit", "recommend", "shortlist", "build vs buy". research — "look up", "find sources", "is it true that", "what's the latest", "cite". plan — "roadmap", "break down", "milestones", "rollout", "how should we approach". validate — "verify", "does this pass", "did the fix work", "acceptance criteria".
 
-- [ ] **T07 Remove the description overlaps.** Give each pair a one-clause tie-breaker in both descriptions.
+- [x] **T07 Remove the description overlaps.** Give each pair a one-clause tie-breaker in both descriptions.
+  - **Done 2026-11-11.** Each confusable pair now carries a "Not for ... (sibling)" clause on both sides: analyze/investigate, analyze/evaluate, review/evaluate, review/validate, research/investigate/define. Body Relationships sections are still uneven (T10).
   - analyze ↔ investigate: analyze's description says "investigate why something happens"; analyze also claims root-cause analysis as a mode, while investigate's example is "the service occasionally times out". Suggested rule: Investigate when facts still have to be gathered or asked for; Analyze when the evidence is already in hand.
   - analyze ↔ evaluate: both claim "trade-offs". Suggested rule: Analyze explains them; Evaluate picks or judges against criteria.
   - review ↔ evaluate: review claims "fitness for purpose"; evaluate claims "fitness, quality, or suitability of one option". Suggested rule: Review finds defects in an artifact; Evaluate judges an option against decision criteria.
   - review ↔ validate: both claim "correctness". Suggested rule: Review is judgment by inspection; Validate is executed checks against stated criteria with a pass/fail result.
   - research ↔ investigate ↔ define (verify): Research finds external sources; Investigate discovers unknowns from people, systems, and files; Define settles what a term means.
 
-- [ ] **T08 Decide what `define` is.** Its description has no "use when" and reads as an always-on guard ("Keep routine terminology work silent"), which a skill cannot be: it only applies once loaded. It is also scoped to technical domains while the other seven are domain-general.
+- [x] **T08 Decide what `define` is.** Its description has no "use when" and reads as an always-on guard ("Keep routine terminology work silent"), which a skill cannot be: it only applies once loaded. It is also scoped to technical domains while the other seven are domain-general.
+  - **Done 2026-11-11 (decision D3, option A taken as recommended).** `define` is now an on-demand skill with a real trigger. If the ambient-guard intent is wanted instead, put its core rule in `AGENTS.md`/`CLAUDE.md`.
   - Option A (recommended): make it on-demand — terminology disputes, "is X a Y" classification, naming a new concept, glossary work — and say so in the description.
   - Option B: keep the ambient intent and document that hosts should put its core rule in always-on instructions (`CLAUDE.md` / `AGENTS.md`).
 
