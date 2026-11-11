@@ -6,13 +6,30 @@ license: Apache-2.0
 
 # Define
 
-Apply **Adopt → Verify → Define locally** within the user's task. These are decision gates, not mandatory stages for every term. Keep routine terminology work silent; explain distinctions that affect the result or that the user requests.
+Apply **Adopt → Verify → Define locally** within the user's task. These are decision gates, not stages every term must pass through. Keep routine terminology work silent; explain distinctions that affect the result or that the user requests.
 
 ## Decision gates
 
-1. **Adopt — default.** Infer the intended domain, version, and project vocabulary from context. Explain established terms directly; a request to define a term does not itself call for a new meaning. Honor explicit user or project definitions within their scope, distinguishing material differences from external usage. Preserve identifiers, API fields, and document vocabulary unless changing them belongs to the request.
-2. **Verify — when consequential.** Resolve ambiguity that could change a requirement, comparison, design, implementation, or interoperability claim. Start with supplied evidence and project context; consult primary sources as needed. Match the source to the claim: the governing specification/version for protocol meaning or conformance, product documentation or implementation evidence for product behavior, original research for a paper's concept. Preserve source status and requirement strength; drafts, optional features, and vendor extensions do not establish universal requirements. Follow user and host research/citation requirements. Otherwise avoid extra lookup for settled usage, and stop when the consequential ambiguity is resolved.
-3. **Define locally — when needed or explicitly requested.** Propose a local meaning when existing concepts cannot express the needed distinction or the user requests a project convention. State the name, meaning here, and distinction from the nearest existing concept. Label new meanings as project-local and unadopted suggestions as proposed; do not relabel an adopted convention as a proposal. Describe combinations of known concepts directly unless a name serves the task. Failed lookup or inaccessible evidence does not establish that a new definition is needed.
+### 1. Adopt (default)
+
+- Infer the intended domain, version, and project vocabulary from context.
+- Explain established terms directly; a request to define a term is not a request for a new meaning.
+- Honor explicit user or project definitions within their scope, and note material differences from external usage.
+- Preserve identifiers, API fields, and document vocabulary unless changing them is the request.
+
+### 2. Verify (when consequential)
+
+- Verify only ambiguity that could change a requirement, comparison, design, implementation, or interoperability claim. Start with supplied evidence and project context, then primary sources as needed.
+- Match source to claim: the governing specification and version for protocol meaning or conformance, product documentation or implementation evidence for product behavior, the original paper for a paper's concept.
+- Preserve source status and requirement strength; drafts, optional features, and vendor extensions do not establish universal requirements.
+- Follow user and host research and citation requirements. Skip extra lookup for settled usage, and stop once the consequential ambiguity is resolved.
+
+### 3. Define locally (when needed or requested)
+
+- Propose a local meaning only when existing concepts cannot express the needed distinction or the user asks for a project convention.
+- State the name, its meaning here, and how it differs from the nearest existing concept.
+- Label new meanings project-local and unadopted suggestions proposed; do not relabel an adopted convention as a proposal.
+- Describe a combination of known concepts directly unless a name serves the task. A failed lookup does not show that a new definition is needed.
 
 If uncertainty remains, state the narrow assumption or limitation and continue independent work. Ask a targeted question only if the unresolved choice materially changes the result and context cannot resolve it. Qualify domain/version differences instead of forcing a universal meaning.
 

@@ -30,7 +30,7 @@ Infer sensible non-exclusionary criteria if absent and label them as proposed as
 
 - Separate **mandatory gates** (eligibility) from **weighted or qualitative preferences** (relative suitability).
 - Make criteria distinct, relevant, and measurable or anchored in observable behavior. Avoid double counting correlated factors.
-- Surface unknown stakeholder preferences and assumptions. Require user confirmation before treating proposed criteria as decisive exclusions.
+- Surface unknown stakeholder preferences and assumptions. Treat proposed criteria as decisive exclusions only with user confirmation; when nobody can confirm (non-interactive run), apply them as conditional and say so.
 - Use weights only when their added value exceeds their complexity. If used, document scale, anchors, weights, and rationale; weights reflect stakeholder priorities and sum to 100%. Do not silently change accepted weights.
 - Treat cost, operational effort, lock-in, and risk explicitly if material, while stating what was not assessed.
 
@@ -44,8 +44,8 @@ Infer sensible non-exclusionary criteria if absent and label them as proposed as
 
 ### 4. Assess eligibility and performance
 
-- Apply identical gate definitions to all options. Use **PASS**, **FAIL**, and **UNKNOWN**. Unknown is not failure and cannot be silently waived. A failed mandatory gate cannot be compensated by a high weighted score.
-- Evaluate remaining options against the same criteria and anchored scale. Attach a short evidence-backed rationale to consequential judgments.
+- Apply identical gate definitions to all options. Use **PASS**, **FAIL**, and **UNKNOWN**. Unknown is not failure and cannot be silently waived: carry an option with an UNKNOWN gate forward as conditional, flag the gate, and name what would settle it. A failed mandatory gate cannot be compensated by a high weighted score.
+- Evaluate remaining options against the same criteria and anchored scale. Default scale when none is given: 1–5 (1 fails the need, 3 adequate, 5 strong) with a one-line anchor per criterion, or strong / adequate / weak for qualitative work. Attach a short evidence-backed rationale to consequential judgments.
 - Mark unverified requirements as unknown; **do not silently score missing evidence as zero**. If a bounded score is needed, present an explicit range or conditional scenario.
 - If quantitative scoring is justified, compute scores deterministically with available calculation tools; verify arithmetic and weight normalization. Distinguish score (fitness) from confidence in its supporting evidence.
 - Examine sensitivity to plausible weights, low-confidence claims, disputed gates, and cost assumptions. Flag near ties; do not manufacture a decisive ranking.
@@ -75,7 +75,18 @@ Default to a concise explanation of criteria, material evidence, and a recommend
 - **Review:** finds defects and improvements in an artifact. Evaluate judges fitness against a purpose, optionally among alternatives.
 - **Plan:** sequences the work once a route is chosen. Evaluate picks the route when alternatives exist.
 
-## Examples
+## Example
+
+Two options for a self-hosted queue; gate: runs air-gapped.
+
+> | Option | Air-gapped (gate) | Ops effort (w 40%) | Cost (w 30%) | Throughput (w 30%) | Result |
+> | --- | --- | --- | --- | --- | --- |
+> | A | PASS | 4 | 3 | 4 | 3.7 |
+> | B | UNKNOWN | 5 | 2 | 4 | 3.8, conditional |
+>
+> B edges A (3.8 vs 3.7), a near tie, and is conditional: its air-gapped support is unverified. Confirm it before choosing B; otherwise A. Moving 10 points of weight from ops to cost (30/40/30) flips the order to A 3.6, B 3.5.
+
+## More examples
 
 - **Single option:** Assess a proposed architecture against security, operations, scalability, and budget expectations, noting unknown criteria.
 - **Multiple options:** Apply hard air-gap eligibility before scoring vendors on usability, cost, and support.

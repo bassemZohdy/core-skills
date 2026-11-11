@@ -16,6 +16,7 @@ All notable changes to this repository. No release has been tagged yet; the firs
 
 ### Changed
 - All skills: descriptions rewritten as triggers with sibling boundaries (`define` is now on-demand); symmetric Relationships sections limited to confusable neighbors; one untrusted-content sentence; removed author-facing disclaimers and the `analyze` Specializations section.
+- `plan`, `review`, `validate`, `research`, `evaluate`, `investigate`, `define`: content gaps closed (default severity scale, intermittent result class, verdict definitions, UNKNOWN-gate handling, no-user fallback, native plan mode, plan file writing); compact worked examples added; `investigate` shortened from about 1,520 to 1,130 words; `define` decision gates split into bullets.
 - `scripts/check.py`: relationships must be reciprocated; README skill table must match `plugin/skills`.
 - `evaluate`, `research`, `investigate`: removed references to artifacts that exist only upstream.
 - `scripts/check.py`: rewritten into testable functions; enforces Agent Skills limits, marketplace source resolution, and manifest consistency.

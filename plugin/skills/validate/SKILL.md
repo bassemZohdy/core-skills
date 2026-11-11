@@ -36,6 +36,15 @@ Adapt labels to project conventions without changing these distinctions:
 | ERROR | The check started but produced no usable validation result, for example because its runtime crashed or setup failed. |
 | NOT RUN | The check was not executed; state why and whether it remains required. |
 | NOT APPLICABLE | The criterion does not apply; explain a consequential exclusion. |
+| INTERMITTENT | The check both failed and passed on identical input. Report both results; it is not a PASS for a required criterion. |
+
+Example results:
+
+| Criterion | Result | Evidence |
+| --- | --- | --- |
+| Unit tests pass | PASS | `pytest` exit 0, 212 passed |
+| Export matches schema | FAIL | `schema.json` rejects `id` (string, expected integer) |
+| Browser flow works | NOT RUN | no browser available; still required, so overall INCOMPLETE |
 
 An expected-failure fixture passes only when it produces the intended rejection without unexpected errors. A missing dependency is not a successful negative test. Keep warnings and baselined defects visible. Do not suppress findings, weaken assertions, raise budgets, or change expected results merely to obtain PASS. Explain legitimate criterion or baseline corrections and keep them reviewable.
 
