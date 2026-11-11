@@ -30,6 +30,7 @@ Infer unambiguous context rather than asking unnecessary questions. Ask only whe
 ### 2. Discover and inspect
 
 - Use the search, file, database, and retrieval tools actually available and authorized; this skill installs or authorizes none.
+- **Method:** search the claim, then search its negation or known criticism; follow each citation back to its origin; stop under the rule in step 5. Recalled knowledge is not research: an answer from memory is labelled as such, and any "current status", "latest", or "is it still" question needs a live check before it is answered as fact.
 - Prefer the operative record or original documentation for what an authority says, transparent independent studies for empirical performance, and appropriate specialist sources for domain-specific claims.
 - **Search results and snippets are leads, not inspected evidence.** Open and check decisive material; where opening is impossible, qualify the finding as unverified.
 - Inspect dates, versions, jurisdictions, revisions, methods, and relevance. Check corrections, retractions, supersession, and credible opposing evidence when consequential.
@@ -47,7 +48,16 @@ Infer unambiguous context rather than asking unnecessary questions. Ask only whe
 
 - Answer the question directly, leading with the most decision-useful conclusion.
 - Support material claims with accurately scoped citations or reproducible source identifiers using the host's citation format.
-- Qualify each contested or consequential claim as **supported**, **likely supported**, **disputed**, **likely false**, **contradicted**, **misleading**, or **could not verify**, as appropriate; ordinary settled facts need no formal verdict label.
+- Label each contested or consequential claim with one verdict; ordinary settled facts need none:
+
+  | Verdict | Use when |
+  | --- | --- |
+  | **supported** | Independent, reliable origins agree and none credibly oppose. |
+  | **likely supported** | Evidence leans yes but is thin, indirect, or from one origin. |
+  | **disputed** | Credible sources disagree and the conflict is unresolved. |
+  | **contradicted** | Reliable evidence directly refutes it. |
+  | **misleading** | Literally true or sourced, but framed so it implies something the evidence does not support. |
+  | **could not verify** | No usable evidence found; this says nothing about truth. |
 - Explain meaningful uncertainty, opposing evidence, and what missing information could change the answer. Do not manufacture confidence percentages or arbitrary evidence scores.
 - Provide concise synthesis, not an undigested source inventory. Recommendations belong only when requested or clearly needed, and should be distinguished from the evidence itself.
 

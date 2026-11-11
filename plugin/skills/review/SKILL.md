@@ -23,10 +23,12 @@ For each material finding, provide:
 
 - a precise location or identifiable source;
 - the observed defect or supported inference, with a concrete trigger when relevant;
-- its consequence and priority, using project severity conventions where present;
+- its consequence and priority, using project severity conventions where present, otherwise **Blocker** (must fix before use), **Major** (should fix, real impact), **Minor** (low impact), or **Nit** (optional polish);
 - a correction, decision, or missing evidence that would resolve it.
 
 Check counterevidence and existing safeguards before finalizing a finding; withdraw stale or disproved claims. Distinguish facts, inferences, questions, and optional suggestions. Missing detail alone does not prove a defect.
+
+**No findings is a valid result.** When the reviewed scope is sound, say so in one line, name what was not seen or run, and stop. Do not add hypothetical risks about code or consumers you did not see ("check whether anything else uses the old name"), or cosmetic suggestions framed as concerns.
 
 Verify consequential external claims against applicable primary sources, preserving version and scope and following user and host research requirements. When evidence is unavailable, qualify the affected claim; do not invent citations or present uncertainty as a demonstrated failure.
 
@@ -56,6 +58,12 @@ Completing the review does not mean the artifact passed every criterion. Do not 
 
 - **Evaluate:** judges an option against decision criteria. Review finds defects and risks in an artifact.
 - **Validate:** runs checks against stated criteria and reports pass, fail, or incomplete. Review judges by inspection and does not certify the result.
+
+For a plain diff, a host's native code-review command may be the better tool; use this skill when the request goes beyond the diff or no such command exists.
+
+## Example finding
+
+> **Major — `retry.py:42`.** `send()` retries on any exception, including after the server accepted the request. A timeout after acceptance causes a duplicate charge. Retry only idempotent calls, or send an idempotency key.
 
 ## Calibration examples
 
