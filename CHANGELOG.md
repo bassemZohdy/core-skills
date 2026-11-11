@@ -5,6 +5,10 @@ All notable changes to this repository. No release has been tagged yet; the firs
 ## Unreleased
 
 ### Added
+- `plugin/evals/`: 16 behavior cases and 48 trigger cases; `docs/EVALS.md` records how to run them and the 2026-11-11 results.
+- `docs/SMOKE-TEST.md`: install smoke test for Claude Code and Codex in a scratch config directory.
+- `plugin/assets/icon.svg`, referenced as the Codex `composerIcon` and `logo`.
+- Each of `plan` and `evaluate` gained a `references/` template; every skill has a worked example.
 - `docs/PROVENANCE.md`: upstream commit, per-skill blob hashes, and status.
 - `.gitattributes` normalizing line endings to LF.
 - `tests/test_check.py`: tests for the checker.
@@ -15,6 +19,9 @@ All notable changes to this repository. No release has been tagged yet; the firs
 - Claude plugin manifest: `license`, `repository`, `keywords`.
 
 ### Changed
+- All skills use the same section names (`Output`, `Relationship to other skills`, `Examples`), enforced by `scripts/check.py`, which also checks Codex listing limits.
+- Codex manifest: shorter `shortDescription`, icons; Codex marketplace gained `interface.displayName`.
+- `docs/INSTALL.md`: name-collision behavior recorded from a real check.
 - All skills: descriptions rewritten as triggers with sibling boundaries (`define` is now on-demand); symmetric Relationships sections limited to confusable neighbors; one untrusted-content sentence; removed author-facing disclaimers and the `analyze` Specializations section.
 - `plan`, `review`, `validate`, `research`, `evaluate`, `investigate`, `define`: content gaps closed (default severity scale, intermittent result class, verdict definitions, UNKNOWN-gate handling, no-user fallback, native plan mode, plan file writing); compact worked examples added; `investigate` shortened from about 1,520 to 1,130 words; `define` decision gates split into bullets.
 - `scripts/check.py`: relationships must be reciprocated; README skill table must match `plugin/skills`.

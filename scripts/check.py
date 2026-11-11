@@ -25,6 +25,8 @@ PLUGIN_NAME = "core-skills"
 # Bold labels that appear in relationship sections but are not skills.
 NON_SKILL_TERMS = set()
 RELATIONSHIP_HEADINGS = ("Boundaries", "Boundaries and integration")
+# Shared section names every skill uses (see AGENTS.md "Skill outline"); workflow headings stay skill-specific.
+REQUIRED_SECTIONS = ("Output", "Relationship to other skills", "Examples")
 
 
 def parse_frontmatter(text):
@@ -99,6 +101,10 @@ def check_skills(root, errors):
         lines = contents.count("\n") + 1
         if lines >= MAX_LINES:
             errors.append(f"{name}: {lines} lines (keep SKILL.md under {MAX_LINES})")
+        headings = set(re.findall(r"(?m)^## (.+?)\s*$", body))
+        for section in REQUIRED_SECTIONS:
+            if section not in headings:
+                errors.append(f"{name}: missing '## {section}' section")
         if len(body.split()) < MIN_BODY_WORDS or not re.search(r"(?m)^## ", body):
             errors.append(f"{name}: body looks like a stub (needs {MIN_BODY_WORDS}+ words and a '## ' section)")
     related = {}
@@ -183,6 +189,38 @@ def check_manifests(root, errors):
             errors.append(f"Claude and Codex manifests differ on {key}")
     check_marketplace("Claude", market_claude, root, plugin_dir, Path(".claude-plugin/plugin.json"), errors)
     check_marketplace("Codex", market_codex, root, plugin_dir, Path(".codex-plugin/plugin.json"), errors)
+    check_codex_listing(codex, market_codex, plugin_dir, errors)
+
+
+def check_codex_listing(codex, market_codex, plugin_dir, errors):
+    """Codex listing limits from the submission docs (developers.openai.com, checked 2026-11-11)."""
+    interface = codex.get("interface")
+    if not isinstance(interface, dict):
+        errors.append("Codex: missing interface")
+        return
+    limits = {"displayName": 30, "shortDescription": 30, "longDescription": 4000, "developerName": 80}
+    for key, limit in limits.items():
+        value = interface.get(key)
+        if not isinstance(value, str) or not value:
+            errors.append(f"Codex interface.{key} is required")
+        elif len(value) > limit:
+            errors.append(f"Codex interface.{key} is {len(value)} characters (limit {limit})")
+    if len(codex.get("description", "")) > 4000:
+        errors.append("Codex description exceeds 4000 characters")
+    capabilities = interface.get("capabilities")
+    if not (isinstance(capabilities, list) and len(capabilities) <= 20
+            and all(isinstance(c, str) and len(c) <= 120 for c in capabilities)):
+        errors.append("Codex interface.capabilities must be a list of at most 20 strings of at most 120 characters")
+    prompts = interface.get("defaultPrompt", [])
+    if not (isinstance(prompts, list) and len(prompts) <= 3
+            and all(isinstance(s, str) and len(s) <= 128 for s in prompts)):
+        errors.append("Codex interface.defaultPrompt must be at most 3 strings of at most 128 characters")
+    for key in ("composerIcon", "logo"):
+        icon = interface.get(key)
+        if not (isinstance(icon, str) and icon.startswith("./") and (plugin_dir / icon[2:]).is_file()):
+            errors.append(f"Codex interface.{key} must be a './' path to an existing file")
+    if not market_codex.get("interface", {}).get("displayName"):
+        errors.append("Codex marketplace: missing interface.displayName")
 
 
 def check_readme_table(root, names, errors):

@@ -92,6 +92,10 @@ class CheckTests(unittest.TestCase):
                   "- **Plan:** sequences the work once a route is chosen. Evaluate picks the route when alternatives exist.\n", "")
         self.assertFails("plan: relationship to 'evaluate' is not reciprocated by evaluate")
 
+    def test_missing_standard_section(self):
+        self.edit(self.skill(), "\n## Output\n", "\n## Output guidance\n")
+        self.assertFails("plan: missing '## Output' section")
+
     def test_missing_skill_file(self):
         self.skill("review").unlink()
         self.assertFails("missing: plugin/skills/review/SKILL.md")
@@ -126,6 +130,25 @@ class CheckTests(unittest.TestCase):
     def test_codex_requires_valid_version(self):
         self.edit_json("plugin/.codex-plugin/plugin.json", lambda d: d.update(version="latest"))
         self.assertFails("Codex: invalid version")
+
+    def test_codex_short_description_limit(self):
+        self.edit_json("plugin/.codex-plugin/plugin.json",
+                       lambda d: d["interface"].update(shortDescription="x" * 31))
+        self.assertFails("interface.shortDescription is 31 characters (limit 30)")
+
+    def test_codex_icon_must_exist(self):
+        self.edit_json("plugin/.codex-plugin/plugin.json",
+                       lambda d: d["interface"].update(logo="./assets/missing.svg"))
+        self.assertFails("interface.logo must be a './' path to an existing file")
+
+    def test_codex_default_prompt_limit(self):
+        self.edit_json("plugin/.codex-plugin/plugin.json",
+                       lambda d: d["interface"].update(defaultPrompt=["a", "b", "c", "d"]))
+        self.assertFails("interface.defaultPrompt must be at most 3")
+
+    def test_codex_marketplace_display_name(self):
+        self.edit_json(".agents/plugins/marketplace.json", lambda d: d.pop("interface"))
+        self.assertFails("missing interface.displayName")
 
     def test_license_mismatch(self):
         self.edit_json("plugin/.claude-plugin/plugin.json", lambda d: d.update(license="MIT"))

@@ -19,7 +19,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Core Skills",
-    "shortDescription": "Reusable skills for clear, evidence-based work",
+    "shortDescription": "Reasoning and quality skills",
     "longDescription": "Independent, portable instruction skills: Define, Research, Analyze, Evaluate, Review, Validate, Plan, and Investigate. Each skill focuses on a distinct reasoning or quality task, scopes its evidence and conclusions, and can run without a particular model, vendor, orchestration system, or peer skill. The package contains no MCP server, app connection, executable tool, remote service, or background automation. Results depend on host tools, available evidence, and the user's task.",
     "developerName": "Bassem Zohdy",
     "category": "Productivity",
@@ -34,6 +34,8 @@
       "Research this technical question and distinguish verified facts from uncertainty",
       "Review this design and prioritize evidence-backed findings",
       "Validate this change against its acceptance criteria"
-    ]
+    ],
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg"
   }
 }

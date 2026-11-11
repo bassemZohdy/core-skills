@@ -1,5 +1,8 @@
 {
   "name": "core-skills",
+  "interface": {
+    "displayName": "Core Skills"
+  },
   "plugins": [
     {
       "name": "core-skills",

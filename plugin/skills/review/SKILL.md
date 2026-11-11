@@ -46,9 +46,9 @@ Test a suspected defect when an appropriate authorized check would clarify it. R
 
 When repeated improvement is requested, honor the user's cap. Each cycle should identify material findings, apply authorized corrections, validate the changed result, and reassess. Keep a compact finding/status record when multiple rounds need traceability; do not insert it into the artifact unless requested.
 
-Stop when the requested criteria are met and another cycle offers no supported material improvement, or when the cap is reached. Do not manufacture findings, make cosmetic churn, or repeat a blocked check to fill a quota. If progress needs unavailable evidence or a decision, continue work that does not depend on it and identify unresolved items. Deferrals remain deferrals, not fixes.
+Stop when the requested criteria are met and another cycle offers no supported material improvement, or when the cap is reached. Do not make cosmetic changes or repeat a blocked check to fill a quota. If progress needs unavailable evidence or a decision, continue work that does not depend on it and identify unresolved items. Deferrals remain deferrals, not fixes.
 
-## Deliver the assessment
+## Output
 
 Lead with consequential findings, or state that none were found within the reviewed scope. Provide evidence and practical resolutions, then summarize changes, executed checks, coverage limits, and remaining items as relevant. Scale the format to the task.
 
@@ -61,11 +61,9 @@ Completing the review does not mean the artifact passed every criterion. Do not 
 
 For a plain diff, a host's native code-review command may be the better tool; use this skill when the request goes beyond the diff or no such command exists.
 
-## Example finding
+## Examples
 
 > **Major — `retry.py:42`.** `send()` retries on any exception, including after the server accepted the request. A timeout after acceptance causes a duplicate charge. Retry only idempotent calls, or send an idempotency key.
-
-## Calibration examples
 
 - **Review only:** Identify a supported duplicate-operation risk in a retry policy without editing it.
 - **Improve:** When asked to review and fix a specification, reconcile a conflicting requirement and its dependent examples within the authorized task.
