@@ -6,7 +6,7 @@ license: Apache-2.0
 
 # Evaluate
 
-Produce a defensible assessment of one or more options relative to an explicit purpose and set of decision criteria. Evaluate may be qualitative or quantitative. Do not force a heavyweight decision-analysis workflow on simple requests.
+Produce a defensible assessment of one or more options relative to an explicit purpose and set of decision criteria. Evaluate may be qualitative or quantitative.
 
 ## Inputs
 
@@ -55,7 +55,7 @@ Infer sensible non-exclusionary criteria if absent and label them as proposed as
 - Lead with a recommendation only when the evidence and known priorities support one; otherwise present a qualified shortlist, conditional winner, or clear no-decision.
 - Name strongest reasons, disqualifiers, trade-offs, total-cost assumptions if applicable, and the specific evidence or test that could reverse the result.
 - Cross-check that criteria and weights precede scoring, gates precede ranking, all options use the same scope, critical scores have evidence, the conclusion survives or discloses sensitivity, and no arithmetic or source claim is invented.
-- Perform a bounded correction if something material can be fixed. Do not run an endless evaluate/research cycle.
+- Perform a bounded correction if something material can be fixed.
 
 ## Outcomes
 

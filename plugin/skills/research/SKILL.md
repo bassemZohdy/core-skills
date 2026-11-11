@@ -81,7 +81,7 @@ Correct material, resolvable issues in a bounded pass. Stop when the answer is s
 
 ## Output
 
-Default output is a short answer with decisive sources, dates when material, and a caveat if necessary. For complex requests, include findings, evidence for and against, open questions, and a source list. Adapt structure to the user's needs; do not require JSON ledgers or a workspace for ordinary use.
+Default output is a short answer with decisive sources, dates when material, and a caveat if necessary. For complex requests, include findings, evidence for and against, open questions, and a source list.
 
 ## Relationship to other skills
 

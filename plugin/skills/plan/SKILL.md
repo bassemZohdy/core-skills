@@ -53,7 +53,7 @@ For each material deliverable, specify:
 - Distinguish external dependencies, user approvals, and tool/permission gates.
 - Flag dependency cycles, infeasible orderings, and single points of failure. Resolve or expose them rather than publishing a misleading sequence.
 - Establish milestones or checkpoints for meaningful decision boundaries. Include handoffs where the task requires them.
-- Show time or effort estimates only when a reasonable basis exists; label rough estimates with their assumptions. Do not fabricate exact dates or capacities.
+- Show time or effort estimates only when a reasonable basis exists; label rough estimates with their assumptions.
 
 ### 4. Assess feasibility, risk, and alternatives
 
@@ -73,7 +73,7 @@ Before delivering the plan, check (confirmed facts, assumptions, and execution b
 4. **Feasibility:** Have binding time, resource, technical, legal, and permission constraints been respected or flagged as unknown?
 5. **Risk:** Have material blockers, irreversible actions, and high-risk assumptions been identified with proportionate mitigations?
 
-Correct significant, resolvable gaps with a bounded revision pass. Stop when the plan is useful for the requested level of detail and remaining uncertainty is explicit; do not enter endless planning cycles.
+Correct significant, resolvable gaps with a bounded revision pass. Stop when the plan is useful for the requested level of detail and remaining uncertainty is explicit.
 
 ## Outcomes
 

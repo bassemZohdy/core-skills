@@ -21,9 +21,9 @@ Ask a focused clarification only when missing information would materially chang
 
 ## Principles
 
-1. **Stay on objective.** Analyze the user's subject and question; do not silently expand the scope.
+1. **Stay on objective.** Analyze the user's subject and question.
 2. **Separate epistemic levels.** Distinguish directly observed facts, sourced claims, assumptions, hypotheses, and inferences. Never present an inference as verified fact.
-3. **Use proportionate evidence.** Ground consequential findings in traceable evidence; identify source quality, currency, and conflicts when they matter. Do not fabricate citations, measurements, experiments, or certainty.
+3. **Use proportionate evidence.** Ground consequential findings in traceable evidence; identify source quality, currency, and conflicts when they matter.
 4. **Consider alternatives.** For causal or ambiguous questions, examine plausible competing explanations and counterevidence, not just the first hypothesis.
 5. **Calibrate depth.** Prioritize material dimensions and decision-relevant insights over exhaustive but low-value detail.
 6. **Preserve boundaries.** Analysis explains; a formal review, pass/fail validation, approval, implementation, or redesign is not implied. Recommendations are optional and must be distinguished from conclusions.
@@ -41,7 +41,7 @@ Ask a focused clarification only when missing information would materially chang
 
 - Break the subject into meaningful dimensions, components, stages, or variables.
 - Select an appropriate analytical lens; for example, causal, comparative, risk, structural, behavioral, temporal, or quantitative.
-- Prioritize the dimensions most relevant to the objective. Avoid imposing a fixed template when it does not fit.
+- Prioritize the dimensions most relevant to the objective.
 
 ### 3. Examine
 
@@ -89,7 +89,7 @@ Use the lightest useful structure, usually:
 3. **Material assumptions, uncertainties, and alternatives**.
 4. **Optional next questions or evidence to collect** if needed; do not add an implementation plan unless requested.
 
-Do not force every element into a visible heading. For complex analyses, use a concise summary followed by supporting detail. Use quantitative values, citations, and confidence labels only where supported and meaningful; never invent precision or a numerical confidence score.
+For complex analyses, use a concise summary followed by supporting detail. Use quantitative values, citations, and confidence labels only where supported and meaningful; never invent precision or a numerical confidence score.
 
 ## Relationship to other skills
 

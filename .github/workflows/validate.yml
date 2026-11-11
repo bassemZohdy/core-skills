@@ -17,3 +17,17 @@ jobs:
         run: python3 scripts/check.py
       - name: Checker tests
         run: python3 -m unittest discover -s tests -v
+  claude-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Claude Code (pinned)
+        run: npm install -g @anthropic-ai/claude-code@2.1.322
+      - name: Validate marketplace and plugin manifests
+        # Warnings are expected (no `version` by design, decision D2), so this is not --strict.
+        run: |
+          claude plugin validate .
+          claude plugin validate ./plugin

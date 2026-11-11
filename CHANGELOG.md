@@ -5,7 +5,7 @@ All notable changes to this repository. No release has been tagged yet; the firs
 ## Unreleased
 
 ### Added
-- `plugin/evals/`: 16 behavior cases and 48 trigger cases; `docs/EVALS.md` records how to run them and the 2026-11-11 results.
+- `plugin/evals/`: 16 behavior cases and 80 trigger cases; `docs/EVALS.md` records how to run them and the 2026-11-11 results.
 - `docs/SMOKE-TEST.md`: install smoke test for Claude Code and Codex in a scratch config directory.
 - `plugin/assets/icon.svg`, referenced as the Codex `composerIcon` and `logo`.
 - Each of `plan` and `evaluate` gained a `references/` template; every skill has a worked example.
@@ -19,6 +19,8 @@ All notable changes to this repository. No release has been tagged yet; the firs
 - Claude plugin manifest: `license`, `repository`, `keywords`.
 
 ### Changed
+- `investigate` shortened again (about 930 words of body); about 20 default-behavior restatements removed across skills; `validate` and `review` descriptions extended after trigger-eval misses.
+- CI also installs a pinned Claude Code and runs `claude plugin validate` on the marketplace and the plugin.
 - All skills use the same section names (`Output`, `Relationship to other skills`, `Examples`), enforced by `scripts/check.py`, which also checks Codex listing limits.
 - Codex manifest: shorter `shortDescription`, icons; Codex marketplace gained `interface.displayName`.
 - `docs/INSTALL.md`: name-collision behavior recorded from a real check.

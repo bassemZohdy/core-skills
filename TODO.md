@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [█████████████████████████░░░░░] 33/40 (82%) · P0 5/5 · P1 7/9 · P2 18/21 · P3 3/5
+**Progress:** [██████████████████████████░░░░] 35/40 (87%) · P0 5/5 · P1 7/9 · P2 20/21 · P3 3/5
 
 ## How this was checked
 
@@ -123,6 +123,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Make the negatives near-misses aimed at the sibling skill from T07 (a "why did this happen, here are the logs" query must pick analyze, not investigate).
   - In `claude plugin eval`, use a `tool_used` grader on `Skill` with an `input_match` for the expected skill name.
   - **Partly done 2026-11-11:** 48 cases (3 should-fire and 3 near-miss per skill), 2 runs each. All 24 near-misses passed; 21 of 24 should-fire cases fired in both runs, 3 never (`trigger-review-yes-1`, `trigger-validate-yes-2`, `trigger-validate-yes-3`). Short of the ~20 queries per skill and the 60/40 split, so left open; spend so far is about $27 across all evals, so more cases wait for your go-ahead. Details in `docs/EVALS.md`.
+  - **Update 2026-11-11:** 80 cases now (5 should-fire and 5 near-miss per skill; queries 1-3 tuned against, 4-5 held out, which is the 60/40 split). Held-out queries: near-misses 32/32 runs, should-fire 31/32 runs. After small description additions to `validate` and `review`, the three earlier misses mostly fire (review 2/2, validate-yes-2 2/2, validate-yes-3 1/2). Still half the ~20 per skill the task asks for, and 2 runs not 3; the full size would cost about $25 more, so it needs your go-ahead.
 
 - [ ] **T14 Smoke-test on Codex.** There is no documented Codex eval runner, so keep a short manual script: install, confirm eight skills are listed, run one `$<skill>` prompt each, record the Codex version. Tick `docs/RELEASE-CHECKLIST.md:9` only after this and T37.
 
@@ -162,11 +163,12 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - **Done 2026-11-11**, with T15, T16, T17, T18, T19, T23 in one content pass (plan, review, validate, research, evaluate, define). Each of plan, review, validate, and evaluate also gained one compact worked example (part of T27). The evaluate example's arithmetic and flip point were checked by hand.
 
 ### investigate
-- [ ] **T21 Cut length and handle the no-user case.** At 1,484 words it is the longest skill, and Principles, Lifecycle step 5, the ten-item quality gate, and Stopping conditions repeat each other (neutral questioning, epistemic labels, proportionality each appear three times). Target roughly 900 words.
+- [x] **T21 Cut length and handle the no-user case.** At 1,484 words it is the longest skill, and Principles, Lifecycle step 5, the ten-item quality gate, and Stopping conditions repeat each other (neutral questioning, epistemic labels, proportionality each appear three times). Target roughly 900 words.
   - Add what to do when nobody can be asked (headless run, subagent): proceed on stated assumptions and return the open questions.
   - Prefer the host's structured question control when one exists.
   - Remove "Do not expose private reasoning" (`:116`), which is not an investigation rule.
   - **Partly done 2026-11-11:** rewritten with the no-user fallback, structured-question preference, and "private reasoning" line removed, and the quality gate, principles, and stopping rules merged. 1,521 to 1,127 words, short of the roughly 900 target, so left open. Cutting further should follow the T12 repeat runs.
+  - **Done 2026-11-11.** Second trim: about 1,017 words including frontmatter (roughly 930 for the body), down from 1,521 at the start. No-user fallback, structured-question preference, and removal of the private-reasoning line were done earlier.
 
 ### analyze
 - [x] **T22 Small fixes.**
@@ -183,9 +185,10 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 - [x] **T24 Remove author-facing disclaimers from every body.** These defend the design to a reviewer and tell the agent nothing actionable. Examples: "These are logical outcomes, not mandatory runtime states or an orchestration protocol" (analyze, evaluate, investigate, plan, research, each in different words); "Do not create an artificial inheritance relationship or require an agent framework" (investigate); "Do not require all other skills, invent a shared skill lifecycle engine, or introduce a dependency on any particular project-management platform" (plan); "Do not require a separate Validate skill to run this internal quality gate" (analyze, plan).
   - **Done 2026-11-11** with T10, T22 and T28 in one pass. Regression guard: the same 16 cases on the plugin arm only ($1.37) show no criteria regressions (15 of 16 pass as before; `review-clean-diff-no-manufactured-findings` still fails). Skill firing 9/16 to 8/16 (one review case), within one-run noise.
-- [ ] **T25 Cut default-behavior restatements, guided by the T12 results.** Roughly 27–39% of sentences in each skill are prohibitions (rough regex count). Apply the agentskills.io test to each: "Would the agent get this wrong without this instruction?" Keep the ones the evals show matter.
+- [x] **T25 Cut default-behavior restatements, guided by the T12 results.** Roughly 27–39% of sentences in each skill are prohibitions (rough regex count). Apply the agentskills.io test to each: "Would the agent get this wrong without this instruction?" Keep the ones the evals show matter.
 - [x] **T26 Standardize the skeleton.** Two styles exist: define, review, and validate are prose; the other five use Inputs / Workflow / Quality gate / Outcomes / Relationships. Section names also vary for the same thing ("Output guidance", "Output", "Outcomes and output", "Output behavior", "Deliver the assessment", "Report the result"). Pick one outline and one set of names; keep sections optional where a skill has nothing to say.
   - **Partly done 2026-11-11:** removed restated gate items and duplicate rules in plan, research, review, analyze, define (about 10 sentences). A systematic pass over every prohibition needs repeat runs to know which ones matter, so left open.
+  - **Done 2026-11-11.** Pruned sentences that restate default behavior or repeat another rule in the same skill (about 20 across eight skills), keeping the ones tied to an eval case (no manufactured findings, UNKNOWN is not FAIL, no overwork on ordinary terms, no invented plan constraints). Regression run after the cuts (plugin arm, 3 runs per case, $4.14): criteria 45 of 48, against 44 of 48 before; the one weak case, `investigate-vague-need` 1/3, passed only in the run where the skill fired, so it reflects firing, not the edit.
 - [x] **T27 Add one compact worked example per skill** showing a good output, not just a one-line rule. Put heavier templates (evaluate scoring matrix, plan work-package table) in `references/` with an explicit "read this when…" line, since no skill uses progressive disclosure today.
   - **Done 2026-11-11.** Shared section names (`Output`, `Relationship to other skills`, `Examples`, plus `Principles` and `Workflow` where used) applied to all eight and enforced by `check.py`; the outline is in `AGENTS.md`. define, review, and validate keep topic headings because they are not sequential.
   - **Done 2026-11-11.** Every skill has a compact worked output under `## Examples`; `plan` and `evaluate` also have `references/` templates with a "read this when" line.
@@ -226,6 +229,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - If T04 option B is chosen, fail when `plugin/` changes without a version bump.
   - Add Dependabot for the action versions.
   - **Status (partial):** done — `push` limited to `main`, checker tests run in CI, `.github/dependabot.yml` added. Not done — `skills-ref validate` (installing it from an external git repo was blocked by the session's permission classifier, so it is unverified; install it manually or grant the permission), `claude plugin validate . --strict` in CI (needs the Claude CLI installed on the runner, and would now fail on the missing-version warning from T04), version-bump check (not needed under T04 option A).
+  - **Update 2026-11-11:** `claude plugin validate` works without credentials (checked in a scratch config dir), so CI now installs a pinned Claude Code and runs it on the marketplace and the plugin (non-strict, because of the intentional no-version warning). Still open: `skills-ref validate`, whose install was blocked by the permission classifier; install it yourself or allow it, then add one CI step.
 - [x] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
 
 ---
@@ -241,7 +245,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 - [ ] **T37 Run and record a real install on both hosts.** Add the marketplace, install, confirm eight skills are listed, invoke one. Record host versions in `docs/RELEASE-CHECKLIST.md` and tick line 9.
 - [ ] **T38 Add `CHANGELOG.md` and tag releases.** There are no tags; the first release should be tagged after P0 and P1.
   - **Status (partial):** `CHANGELOG.md` added (Unreleased section). Tagging waits for the P0 and P1 tasks to finish.
-  - **Partly done 2026-11-11:** both hosts installed from the GitHub source in scratch config directories (Claude Code 2.1.322, Codex 0.167.0, Windows), eight skills present on each, versions and results recorded in `docs/SMOKE-TEST.md` and `docs/RELEASE-CHECKLIST.md`. Not done: invoking one skill from an installed copy. The scratch directories have no sign-in, and I did not install into your real Claude Code or Codex config. Skills were invoked from `--plugin-dir` in the evals, and Claude loads them as `core-skills:<skill>` (init event). To finish: run `/core-skills:plan` after a real install, and `$plan` in Codex.
+  - **Partly done 2026-11-11:** both hosts installed from the GitHub source in scratch config directories (Claude Code 2.1.322, Codex 0.167.0, Windows), eight skills present on each, versions and results recorded in `docs/SMOKE-TEST.md` and `docs/RELEASE-CHECKLIST.md`. Claude Code invocation also done: the plugin installed from GitHub into a scratch dir (commit 000d08f), then `claude -p --plugin-dir <that installed copy> "/core-skills:plan ..."` using your normal sign-in ran the skill and answered in its shape (Objective, Status Conditional). Not done: invoking `$plan` in Codex, because a scratch `CODEX_HOME` has no sign-in and I did not install into your real Codex config. To finish: `codex plugin marketplace add bassemZohdy/core-skills`, `codex plugin add core-skills@core-skills`, then `$plan` in a Codex session.
 - [x] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
 
 ---
