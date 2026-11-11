@@ -31,3 +31,5 @@ Write the date, host versions, source used (local path or GitHub), and the resul
 
 | Date | Host | Source | Result |
 | --- | --- | --- | --- |
+| 2026-11-11 | Claude Code 2.1.322 | GitHub `bassemZohdy/core-skills` at f856710 | installed, enabled, 8 skills, version = commit SHA |
+| 2026-11-11 | Codex 0.167.0 | GitHub `bassemZohdy/core-skills` at f856710 | installed, enabled, 0.1.0, 8 skills and icon; `$skill` not run |
