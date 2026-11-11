@@ -15,6 +15,8 @@ All notable changes to this repository. No release has been tagged yet; the firs
 - Claude plugin manifest: `license`, `repository`, `keywords`.
 
 ### Changed
+- All skills: descriptions rewritten as triggers with sibling boundaries (`define` is now on-demand); symmetric Relationships sections limited to confusable neighbors; one untrusted-content sentence; removed author-facing disclaimers and the `analyze` Specializations section.
+- `scripts/check.py`: relationships must be reciprocated; README skill table must match `plugin/skills`.
 - `evaluate`, `research`, `investigate`: removed references to artifacts that exist only upstream.
 - `scripts/check.py`: rewritten into testable functions; enforces Agent Skills limits, marketplace source resolution, and manifest consistency.
 - CI runs the checker tests and triggers on `push` to `main` and on pull requests.

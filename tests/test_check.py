@@ -84,8 +84,13 @@ class CheckTests(unittest.TestCase):
         self.assertFails("lines (keep SKILL.md under 500)")
 
     def test_unknown_skill_in_relationships(self):
-        self.edit(self.skill(), "- **Analyze:**", "- **Frobnicate:** not a skill.\n- **Analyze:**")
+        self.edit(self.skill(), "- **Investigate:**", "- **Frobnicate:** not a skill.\n- **Investigate:**")
         self.assertFails("names unknown skill 'frobnicate'")
+
+    def test_unreciprocated_relationship(self):
+        self.edit(self.skill("evaluate"),
+                  "- **Plan:** sequences the work once a route is chosen. Evaluate picks the route when alternatives exist.\n", "")
+        self.assertFails("plan: relationship to 'evaluate' is not reciprocated by evaluate")
 
     def test_missing_skill_file(self):
         self.skill("review").unlink()
