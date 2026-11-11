@@ -17,6 +17,12 @@ jobs:
         run: python3 scripts/check.py
       - name: Checker tests
         run: python3 -m unittest discover -s tests -v
+      - name: Official Agent Skills validator (pinned)
+        env:
+          PYTHONUTF8: '1'
+        run: |
+          python3 -m pip install "git+https://github.com/agentskills/agentskills.git@83021e2be457a9b6679148719c1f6074f0ad975e#subdirectory=skills-ref"
+          for dir in plugin/skills/*/; do skills-ref validate "$dir"; done
   claude-validate:
     runs-on: ubuntu-latest
     steps:
