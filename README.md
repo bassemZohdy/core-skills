@@ -15,7 +15,7 @@ Independent, platform-agnostic skills for clear, evidence-based work with AI age
 
 ## Install
 
-> Installing from the GitHub marketplace was tested on Claude Code 2.1.322 and Codex 0.167.0 (2026-11-11) with the CLI commands in [docs/INSTALL.md](docs/INSTALL.md). The in-session slash forms below and invoking a skill from an installed copy were not tested.
+> Installing from the GitHub marketplace was tested on Claude Code 2.1.322 and Codex 0.167.0 (2026-11-11) with the CLI commands in [docs/INSTALL.md](docs/INSTALL.md). The in-session slash forms below were not tested, and neither was invoking a Codex skill.
 
 Claude Code:
 

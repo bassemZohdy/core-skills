@@ -3,7 +3,7 @@
 Two kinds of case live in `plugin/evals/`, run with `claude plugin eval` (Claude Code 2.1.322).
 
 - **Behavior cases** (16, two per skill; for example `review-clean-diff-no-manufactured-findings`): a realistic prompt aimed at something a default model may get wrong, an LLM-judged `criteria` grader, and a `skill-fired` grader.
-- **Trigger cases** (48, `trigger-<skill>-yes-N` and `trigger-<skill>-no-N`; three of each per skill): a prompt that should (yes) or should not (no, a near miss that belongs to a sibling skill) load the named skill, graded only by whether the `Skill` tool was called for it.
+- **Trigger cases** (80, `trigger-<skill>-yes-N` and `trigger-<skill>-no-N`; five of each per skill; queries 1-3 were used to tune descriptions, 4-5 are held out): a prompt that should (yes) or should not (no, a near miss that belongs to a sibling skill) load the named skill, graded only by whether the `Skill` tool was called for it.
 
 ## Running
 
@@ -30,3 +30,5 @@ Recorded to keep the claims below honest; the numbers are small and noisy.
 **Trigger cases, plugin only, 2 runs each, 48 cases, about $9.4 over three runs of the suite.** All 24 near-miss cases passed (the skill did not fire when it should not). Of 24 should-fire cases, 21 fired in both runs; the other three never fired: `trigger-review-yes-1` (a bug review of a one-line function), `trigger-validate-yes-2` (a test result with one skipped test, asking whether a criterion can be marked validated), and `trigger-validate-yes-3` (a JSON document checked against two stated requirements). In each the model answered directly.
 
 **Limits.** Three queries per case type per skill, not the roughly 20 recommended; two runs per case; judged by a model. A zero delta on a case does not mean a skill is useless, only that the case is too easy for the baseline.
+
+**Update after tuning (same day).** `validate` and `review` descriptions were extended after the three misses. Re-run: `trigger-review-yes-1` 2/2, `trigger-validate-yes-2` 2/2, `trigger-validate-yes-3` 1/2. Held-out queries (16 new cases, 2 runs): all near-misses passed (32/32 runs) and 31 of 32 should-fire runs fired (`trigger-validate-yes-5` 1/2). Behavior cases after pruning restated rules from the skills (plugin only, 3 runs): criteria 45/48.

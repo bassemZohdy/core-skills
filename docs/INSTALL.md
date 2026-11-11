@@ -4,7 +4,7 @@ One source of skill definitions at `plugin/skills/`, packaged for both Claude an
 
 ## Claude Code
 
-> **Tested 2026-11-11 (Claude Code 2.1.322, Windows, scratch config dir):** `claude plugin marketplace add bassemZohdy/core-skills` then `claude plugin install core-skills@core-skills` installed the plugin with all eight skills; the installed version is the source commit's short SHA because the manifest has no `version`. Not tested: the one-step `/plugin install ... --marketplace` form typed inside a session, and invoking a skill from the installed copy. `claude plugin validate` passes for both the marketplace and the plugin.
+> **Tested 2026-11-11 (Claude Code 2.1.322, Windows, scratch config dir):** `claude plugin marketplace add bassemZohdy/core-skills` then `claude plugin install core-skills@core-skills` installed the plugin with all eight skills; the installed version is the source commit's short SHA because the manifest has no `version`. Invoking `/core-skills:plan` from the installed copy (loaded with `--plugin-dir` on the cache directory) worked. Not tested: the one-step `/plugin install ... --marketplace` form typed inside a session. `claude plugin validate` passes for both the marketplace and the plugin.
 
 Install from the GitHub marketplace, either in one step or in two:
 

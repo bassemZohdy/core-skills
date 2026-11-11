@@ -1,6 +1,6 @@
 ---
 name: validate
-description: Check a result against stated requirements or acceptance criteria by running checks, and report PASS, FAIL, or INCOMPLETE with the evidence. Use this skill when the user asks to verify, validate, or test a fix or deliverable, asks whether something is ready or done, or asks whether the acceptance criteria are met. Distinguishes failures from checks that errored or were not run, and never reports an unrun check as a pass. Not for judging design quality (review).
+description: Check a result against stated requirements or acceptance criteria by running checks, and report PASS, FAIL, or INCOMPLETE with the evidence. Use this skill when the user asks to verify, validate, or test a fix or deliverable, asks whether something is ready or done, asks whether the acceptance criteria are met or a criterion can be marked as validated, or asks you to check a file, output, or test result against stated requirements. Distinguishes failures from checks that errored or were not run, and never reports an unrun check as a pass. Not for judging design quality (review).
 license: Apache-2.0
 ---
 
