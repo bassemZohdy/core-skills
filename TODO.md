@@ -48,7 +48,7 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
 - [x] **T04 Decide the version policy before the first user installs.** `plugin.json` pins `"version": "0.1.0"`. Per the Claude Code docs, a pinned version "keeps every user on the cached copy until its author changes the string, however many commits they push."
   - Option A (recommended while pre-1.0): drop `version` from the Claude manifest so installs track commits. `check.py` currently requires it in both manifests and Codex requires it, so relax the Claude check only.
   - Option B: keep it and bump on every change to `plugin/`, enforced in CI (T33).
-  - Done: option A applied (decision D2, reversible). `claude plugin validate ./plugin` now reports the warning "No version specified"; accepted. Codex manifest keeps `0.1.0`.
+  - Done: option A applied (decision D2, reversible). `claude plugin validate ./plugin` now reports the warning "No version specified"; accepted. Codex manifest keeps `0.1.0`. Whether a relative-path marketplace source then tracks commits is unverified; check by installing (T37).
 
 - [x] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
 
@@ -104,7 +104,7 @@ Descriptions drive selection; body "Relationships" sections load only after a sk
 Do the baseline run (T11–T12) **before** the content rewrites in the next sections, so each rewrite is measured.
 
 - [ ] **T11 Add an eval suite with `claude plugin eval`.** Available locally (needs Claude Code ≥ 2.1.269; installed: 2.1.322). Layout: `plugin/evals/<case>/prompt.md` plus `graders/*.md`; it runs a no-plugin baseline arm by default and reports the score delta.
-  - **Status (started):** pipeline proven with one case, `plugin/evals/validate-incomplete` (validate: must report INCOMPLETE when required checks are not run). First result, 1 run per arm, $0.16: with skill 1.00, without 1.00, delta 0.00. The case is too easy, since the baseline model already gets it right, so it shows nothing about the skill. Next: harder cases where the baseline plausibly fails (see the grader ideas below). The full suite has not been run; it spawns paid runs on the maintainer credential and needs a go-ahead.
+  - **Status (started):** pipeline proven with one case, `plugin/evals/validate-incomplete` (validate: must report INCOMPLETE when required checks are not run). Result, 1 run per arm (about $0.16 per run, $0.32 total across two runs): with skill 1.00, without 1.00, delta 0.00. A `tool_used: Skill` grader confirmed the skill fired in the with-arm, so on this case the loaded skill added nothing over the baseline (n=1 per arm). The case is too easy: the baseline model already gets it right. Next: harder cases where the baseline plausibly fails (see the grader ideas below). The full suite has not been run; it spawns paid runs on the maintainer credential and needs a go-ahead.
   - Two or three output-quality cases per skill with realistic inputs (a real diff to review, a vendor comparison with one unverifiable claim, a vague requirement to investigate, logs with two plausible causes).
   - Graders must check observable behavior that the baseline could plausibly miss, for example: evaluate marks an unverified gate UNKNOWN rather than FAIL; validate reports INCOMPLETE when a required check cannot run; research does not count three articles repeating one press release as three sources; review-only requests leave the file unedited.
   - Add `evals/results/` to a new `.gitignore`.
@@ -206,7 +206,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Add `claude plugin validate . --strict` if it runs without credentials **(verify)**.
   - If T04 option B is chosen, fail when `plugin/` changes without a version bump.
   - Add Dependabot for the action versions.
-  - **Status (partial):** done — `push` limited to `main`, checker tests run in CI, `.github/dependabot.yml` added. Not done — `skills-ref validate` (installing it from an external git repo was blocked by the session's permission classifier, so it is unverified; install it manually or grant the permission), `claude plugin validate . --strict` in CI (needs the Claude CLI installed on the runner), version-bump check (not needed under T04 option A).
+  - **Status (partial):** done — `push` limited to `main`, checker tests run in CI, `.github/dependabot.yml` added. Not done — `skills-ref validate` (installing it from an external git repo was blocked by the session's permission classifier, so it is unverified; install it manually or grant the permission), `claude plugin validate . --strict` in CI (needs the Claude CLI installed on the runner, and would now fail on the missing-version warning from T04), version-bump check (not needed under T04 option A).
 - [x] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
 
 ---

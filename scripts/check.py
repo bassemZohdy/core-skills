@@ -150,8 +150,10 @@ def check_manifests(root, errors):
             errors.append(f"{label}: wrong plugin name")
         if not manifest.get("description"):
             errors.append(f"{label}: missing description")
-        # The Claude manifest deliberately omits `version` so installs track the commit
-        # (a pinned version blocks updates until the string changes). Codex requires one.
+        # The Claude manifest deliberately omits `version`: Claude Code docs say a pinned
+        # version blocks updates until the string changes, and an omitted one lets installs
+        # follow the source (commit-based for git sources; not yet verified for this
+        # relative-path marketplace source). Codex requires a version.
         version_ok = (label == "Claude" and "version" not in manifest) or bool(
             re.fullmatch(r"\d+\.\d+\.\d+", manifest.get("version", "")))
         if not version_ok:
@@ -177,12 +179,25 @@ def check_manifests(root, errors):
     check_marketplace("Codex", market_codex, root, plugin_dir, Path(".codex-plugin/plugin.json"), errors)
 
 
+def check_readme_table(root, names, errors):
+    """The README skill table must list exactly the skills found in plugin/skills."""
+    try:
+        text = (root / "README.md").read_text(encoding="utf-8")
+    except OSError:
+        errors.append("missing README.md")
+        return
+    listed = set(re.findall(r"(?m)^\| `([a-z0-9-]+)` \|", text))
+    if listed != names:
+        errors.append(f"README skill table differs from plugin/skills: {sorted(listed ^ names)}")
+
+
 def run_checks(root=ROOT_DEFAULT):
     """Return (errors, skill_count) for the repository at `root`."""
     root = Path(root)
     errors = []
     names = check_skills(root, errors)
     check_manifests(root, errors)
+    check_readme_table(root, names, errors)
     for required in ("LICENSE", "docs/INSTALL.md"):
         if not (root / required).is_file():
             errors.append(f"missing {required}")

@@ -1,2 +1,4 @@
 # Local eval run output (reports, transcripts)
 plugin/evals/results/
+__pycache__/
+*.pyc

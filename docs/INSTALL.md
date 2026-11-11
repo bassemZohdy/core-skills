@@ -46,7 +46,7 @@ Copy the skill directories to a user-level skills directory:
 cp -r plugin/skills/* ~/.agents/skills/
 ```
 
-Prefer the plugin install on Claude Code. A personal skill named `plan` or `review` sits next to Claude Code's built-in commands of the same names and can take their place, whereas plugin skills are namespaced (`/core-skills:plan`) and do not collide. Codex does not merge skills with duplicate names; both can appear in its selector.
+Prefer the plugin install on Claude Code. A personal skill named `plan` or `review` may collide with Claude Code's built-in commands of the same names (not yet tried; the docs say a personal skill replaces a built-in command of the same name but not its aliases), whereas plugin skills are namespaced (`/core-skills:plan`). Codex does not merge skills with duplicate names; both can appear in its selector.
 
 ## Checking a clone
 

@@ -10,7 +10,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 import check  # noqa: E402
 
-COPIED = ("plugin", ".claude-plugin", ".agents", "LICENSE", "docs/INSTALL.md")
+COPIED = ("plugin", ".claude-plugin", ".agents", "LICENSE", "README.md", "docs/INSTALL.md")
 
 
 class CheckTests(unittest.TestCase):
@@ -47,7 +47,7 @@ class CheckTests(unittest.TestCase):
     def test_clean_copy_passes(self):
         errors, count = check.run_checks(self.root)
         self.assertEqual(errors, [])
-        self.assertEqual(count, 8)
+        self.assertEqual(count, len(list((REPO / "plugin" / "skills").iterdir())))
 
     def test_name_mismatch(self):
         self.edit(self.skill(), "\nname: plan\n", "\nname: planner\n")
@@ -90,6 +90,15 @@ class CheckTests(unittest.TestCase):
     def test_missing_skill_file(self):
         self.skill("review").unlink()
         self.assertFails("missing: plugin/skills/review/SKILL.md")
+
+    def test_deleted_skill_directory_is_caught_by_readme_table(self):
+        shutil.rmtree(self.skill("review").parent)
+        self.assertFails("README skill table differs from plugin/skills: ['review']")
+
+    def test_undocumented_skill_is_caught_by_readme_table(self):
+        shutil.copytree(self.skill("plan").parent, self.skill("plan").parent.parent / "extra")
+        self.edit(self.skill("extra"), "\nname: plan\n", "\nname: extra\n")
+        self.assertFails("README skill table differs from plugin/skills: ['extra']")
 
     def test_marketplace_wrong_path(self):
         self.edit_json(".claude-plugin/marketplace.json",
