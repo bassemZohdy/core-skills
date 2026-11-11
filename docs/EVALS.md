@@ -32,3 +32,5 @@ Recorded to keep the claims below honest; the numbers are small and noisy.
 **Limits.** Three queries per case type per skill, not the roughly 20 recommended; two runs per case; judged by a model. A zero delta on a case does not mean a skill is useless, only that the case is too easy for the baseline.
 
 **Update after tuning (same day).** `validate` and `review` descriptions were extended after the three misses. Re-run: `trigger-review-yes-1` 2/2, `trigger-validate-yes-2` 2/2, `trigger-validate-yes-3` 1/2. Held-out queries (16 new cases, 2 runs): all near-misses passed (32/32 runs) and 31 of 32 should-fire runs fired (`trigger-validate-yes-5` 1/2). Behavior cases after pruning restated rules from the skills (plugin only, 3 runs): criteria 45/48.
+
+**Final size (same day).** 128 trigger cases, eight of each kind per skill. Third run over the first 80: near-misses 40/40, should-fire 39/40. The newest 48 (3 runs): near-misses 72/72, should-fire 62/72 before description changes. All near-miss cases pass. Should-fire cases still below a 0.5 rate: `trigger-evaluate-yes-7` and `trigger-validate-yes-3`.

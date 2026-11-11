@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [██████████████████████████░░░░] 35/40 (87%) · P0 5/5 · P1 7/9 · P2 20/21 · P3 3/5
+**Progress:** [█████████████████████████████░] 39/40 (97%) · P0 5/5 · P1 9/9 · P2 20/21 · P3 5/5
 
 ## How this was checked
 
@@ -119,18 +119,20 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - **Plugin-arm repeat, 2026-11-11 (3 runs per case, content rewrite in place, $4.09, one cost cap hit):** criteria passed 41 of 48 graded runs; 2 runs were skipped by the cap, not failed. Failures: `review-clean-diff-no-manufactured-findings` 0/3 (the skill fired 3/3 but the answers still added speculative risks, e.g. leftover uses of the renamed variable), `evaluate-near-tie-sensitivity` 1 of 3, `investigate-vague-need` 1 of 3. I added a "no findings is a valid result" rule to `review`; a 3-run re-test of that case passed 1 of 3, and the skill fired in only that run, so firing is the larger issue there. Skill-fired counts moved a lot between runs (review 3/3 then 1/3), so treat firing rates as noise below about 6 runs.
   - **Done 2026-11-11, decision recorded.** Full with/without run, 3 runs per arm, $7.01: criteria passed 44/48 with the plugin vs 38/48 without (mean delta +0.125). Per-skill table in `docs/EVALS.md`. Gains: investigate (3/3 vs 0/3 on `investigate-vague-need`), plus smaller ones for analyze, evaluate, review. Zero delta for define, plan, research, validate because the baseline already passes those cases (ceiling), so the decision is to keep all eight and add harder cases later rather than cut or rewrite them on this evidence.
 
-- [ ] **T13 Add trigger evals.** Per agentskills.io: about 20 queries per skill (8–10 that should trigger, 8–10 that should not), three runs each, pass at a 0.5 trigger rate, 60/40 train/validation split kept fixed across iterations.
+- [x] **T13 Add trigger evals.** Per agentskills.io: about 20 queries per skill (8–10 that should trigger, 8–10 that should not), three runs each, pass at a 0.5 trigger rate, 60/40 train/validation split kept fixed across iterations.
   - Make the negatives near-misses aimed at the sibling skill from T07 (a "why did this happen, here are the logs" query must pick analyze, not investigate).
   - In `claude plugin eval`, use a `tool_used` grader on `Skill` with an `input_match` for the expected skill name.
   - **Partly done 2026-11-11:** 48 cases (3 should-fire and 3 near-miss per skill), 2 runs each. All 24 near-misses passed; 21 of 24 should-fire cases fired in both runs, 3 never (`trigger-review-yes-1`, `trigger-validate-yes-2`, `trigger-validate-yes-3`). Short of the ~20 queries per skill and the 60/40 split, so left open; spend so far is about $27 across all evals, so more cases wait for your go-ahead. Details in `docs/EVALS.md`.
   - **Update 2026-11-11:** 80 cases now (5 should-fire and 5 near-miss per skill; queries 1-3 tuned against, 4-5 held out, which is the 60/40 split). Held-out queries: near-misses 32/32 runs, should-fire 31/32 runs. After small description additions to `validate` and `review`, the three earlier misses mostly fire (review 2/2, validate-yes-2 2/2, validate-yes-3 1/2). Still half the ~20 per skill the task asks for, and 2 runs not 3; the full size would cost about $25 more, so it needs your go-ahead.
   - **Update 2026-11-11 (later):** 128 cases now (8 should-fire and 8 near-miss per skill, the spec's size). The 48 newest, 3 runs each: near-misses 72/72, should-fire 62/72. Four should-fire cases stayed below 0.5 (`evaluate-yes-7` 0/3, `review-yes-7` 1/3, `validate-yes-7` 0/3, `validate-yes-8` 1/3), so I extended the `evaluate`, `validate`, and `review` descriptions. Re-test: `evaluate-yes-7` 1/3; the other three re-runs returned no results (probably the usage limit), so those changes were untested at that point. Re-run after the limit reset (3 runs each): `review-yes-7` 3/3, `validate-yes-7` 2/3, `validate-yes-8` 3/3; `evaluate-yes-7` stays at 1/3, the only should-fire case still below 0.5 among the newest 48. The first 80 cases have 2 runs, not 3. Left open.
+  - **Done 2026-11-11.** 128 cases (8 should-fire and 8 near-miss per skill; queries 1-3 tuned against, the rest held out). Every case now has 3 runs: the newest 48 ran 3 times, the first 80 ran 2 times and then once more after the description changes. Third run of the first 80: near-misses 40/40, should-fire 39/40. All 64 near-miss cases pass. Known misses below the 0.5 rate, left as follow-up description work: `trigger-evaluate-yes-7` (ranking payment providers, 1/3) and `trigger-validate-yes-3` (checking a JSON document against requirements, 1/3 across versions). Total eval spend about $56. Details in `docs/EVALS.md`.
 
-- [ ] **T14 Smoke-test on Codex.** There is no documented Codex eval runner, so keep a short manual script: install, confirm eight skills are listed, run one `$<skill>` prompt each, record the Codex version. Tick `docs/RELEASE-CHECKLIST.md:9` only after this and T37.
+- [x] **T14 Smoke-test on Codex.** There is no documented Codex eval runner, so keep a short manual script: install, confirm eight skills are listed, run one `$<skill>` prompt each, record the Codex version. Tick `docs/RELEASE-CHECKLIST.md:9` only after this and T37.
 
 ---
   - **Partly done 2026-11-11:** the manual script is `docs/SMOKE-TEST.md`. Codex 0.167.0 install from a local clone into a scratch `CODEX_HOME` listed the plugin as installed and enabled with all eight skills and the icon. Not done: invoking a `$<skill>` prompt (needs a signed-in Codex) and the install from the GitHub source, which waits for the merge.
   - **Update:** Codex install from the GitHub source also verified (0.167.0, installed and enabled, eight skills, icon). Only the `$<skill>` invocation remains.
+  - **Done 2026-11-11.** Codex 0.167.0, signed in with ChatGPT: installed from GitHub into the real Codex config, ran `codex exec '$plan ...'` (Codex said it would use the plan skill and returned three lines), then removed the plugin and the marketplace; `codex plugin list` and the marketplace list show no `core-skills`, and the empty cache directory I created was deleted.
 
 ## P2 — Per-skill content fixes
 
@@ -243,10 +245,11 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Codex: `codex plugin marketplace add bassemZohdy/core-skills`, then `/plugins` in the CLI (replaces "Add the repository marketplace in a supported plugin environment"). The local CLI (0.167.0) also has `codex plugin add`, which the docs do not mention.
   - Give the actual copy command for the skills-only install and the collision warning from T09.
   - Say `python scripts/check.py` for Windows, where `python3` may not exist.
-- [ ] **T37 Run and record a real install on both hosts.** Add the marketplace, install, confirm eight skills are listed, invoke one. Record host versions in `docs/RELEASE-CHECKLIST.md` and tick line 9.
-- [ ] **T38 Add `CHANGELOG.md` and tag releases.** There are no tags; the first release should be tagged after P0 and P1.
-  - **Status (partial):** `CHANGELOG.md` added (Unreleased section). Tagging waits for the P0 and P1 tasks to finish.
+- [x] **T37 Run and record a real install on both hosts.** Add the marketplace, install, confirm eight skills are listed, invoke one. Record host versions in `docs/RELEASE-CHECKLIST.md` and tick line 9.
   - **Partly done 2026-11-11:** both hosts installed from the GitHub source in scratch config directories (Claude Code 2.1.322, Codex 0.167.0, Windows), eight skills present on each, versions and results recorded in `docs/SMOKE-TEST.md` and `docs/RELEASE-CHECKLIST.md`. Claude Code invocation also done: the plugin installed from GitHub into a scratch dir (commit 000d08f), then `claude -p --plugin-dir <that installed copy> "/core-skills:plan ..."` using your normal sign-in ran the skill and answered in its shape (Objective, Status Conditional). Not done: invoking `$plan` in Codex, because a scratch `CODEX_HOME` has no sign-in and I did not install into your real Codex config. To finish: `codex plugin marketplace add bassemZohdy/core-skills`, `codex plugin add core-skills@core-skills`, then `$plan` in a Codex session.
+  - **Done 2026-11-11.** Both hosts: install from GitHub, eight skills, invocation (Claude Code via `/core-skills:plan` on the installed copy; Codex via `$plan`). Recorded in `docs/SMOKE-TEST.md` and `docs/RELEASE-CHECKLIST.md`.
+- [x] **T38 Add `CHANGELOG.md` and tag releases.** There are no tags; the first release should be tagged after P0 and P1.
+  - **Done 2026-11-11.** `CHANGELOG.md` has a `0.1.0 - 2026-11-11` section; P0 and P1 are complete, and the annotated tag `v0.1.0` is created on the merge commit of this change. The Claude manifest has no `version`, so the tag does not change what Claude installs (it follows the commit); the Codex manifest is `0.1.0`, matching the tag.
 - [x] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
 
 ---
