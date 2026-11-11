@@ -48,7 +48,7 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
 - [x] **T04 Decide the version policy before the first user installs.** `plugin.json` pins `"version": "0.1.0"`. Per the Claude Code docs, a pinned version "keeps every user on the cached copy until its author changes the string, however many commits they push."
   - Option A (recommended while pre-1.0): drop `version` from the Claude manifest so installs track commits. `check.py` currently requires it in both manifests and Codex requires it, so relax the Claude check only.
   - Option B: keep it and bump on every change to `plugin/`, enforced in CI (T33).
-  - Done: option A applied (decision D2, reversible). `claude plugin validate ./plugin` now reports the warning "No version specified"; accepted. Codex manifest keeps `0.1.0`. Whether a relative-path marketplace source then tracks commits is unverified; check by installing (T37).
+  - Done: option A applied (decision D2, reversible). `claude plugin validate ./plugin` now reports the warning "No version specified"; accepted. Codex manifest keeps `0.1.0`. Verified 2026-11-11 (T37): installing from the GitHub marketplace gives the source commit's short SHA as the version.
 
 - [x] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
 
@@ -128,6 +128,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 ---
   - **Partly done 2026-11-11:** the manual script is `docs/SMOKE-TEST.md`. Codex 0.167.0 install from a local clone into a scratch `CODEX_HOME` listed the plugin as installed and enabled with all eight skills and the icon. Not done: invoking a `$<skill>` prompt (needs a signed-in Codex) and the install from the GitHub source, which waits for the merge.
+  - **Update:** Codex install from the GitHub source also verified (0.167.0, installed and enabled, eight skills, icon). Only the `$<skill>` invocation remains.
 
 ## P2 — Per-skill content fixes
 
@@ -240,6 +241,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 - [ ] **T37 Run and record a real install on both hosts.** Add the marketplace, install, confirm eight skills are listed, invoke one. Record host versions in `docs/RELEASE-CHECKLIST.md` and tick line 9.
 - [ ] **T38 Add `CHANGELOG.md` and tag releases.** There are no tags; the first release should be tagged after P0 and P1.
   - **Status (partial):** `CHANGELOG.md` added (Unreleased section). Tagging waits for the P0 and P1 tasks to finish.
+  - **Partly done 2026-11-11:** both hosts installed from the GitHub source in scratch config directories (Claude Code 2.1.322, Codex 0.167.0, Windows), eight skills present on each, versions and results recorded in `docs/SMOKE-TEST.md` and `docs/RELEASE-CHECKLIST.md`. Not done: invoking one skill from an installed copy. The scratch directories have no sign-in, and I did not install into your real Claude Code or Codex config. Skills were invoked from `--plugin-dir` in the evals, and Claude loads them as `core-skills:<skill>` (init event). To finish: run `/core-skills:plan` after a real install, and `$plan` in Codex.
 - [x] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
 
 ---

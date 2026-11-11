@@ -164,8 +164,7 @@ def check_manifests(root, errors):
             errors.append(f"{label}: missing description")
         # The Claude manifest deliberately omits `version`: Claude Code docs say a pinned
         # version blocks updates until the string changes, and an omitted one lets installs
-        # follow the source (commit-based for git sources; not yet verified for this
-        # relative-path marketplace source). Codex requires a version.
+        # follow the source commit (verified 2026-11-11 for this marketplace). Codex requires a version.
         version_ok = (label == "Claude" and "version" not in manifest) or bool(
             re.fullmatch(r"\d+\.\d+\.\d+", manifest.get("version", "")))
         if not version_ok:

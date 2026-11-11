@@ -4,7 +4,7 @@ One source of skill definitions at `plugin/skills/`, packaged for both Claude an
 
 ## Claude Code
 
-> **Untested:** the marketplace commands below follow the Claude Code documentation but have not yet been run against this repository (see `docs/RELEASE-CHECKLIST.md`). `claude plugin validate` passes for both the marketplace and the plugin, which checks the manifests only, not installation.
+> **Tested 2026-11-11 (Claude Code 2.1.322, Windows, scratch config dir):** `claude plugin marketplace add bassemZohdy/core-skills` then `claude plugin install core-skills@core-skills` installed the plugin with all eight skills; the installed version is the source commit's short SHA because the manifest has no `version`. Not tested: the one-step `/plugin install ... --marketplace` form typed inside a session, and invoking a skill from the installed copy. `claude plugin validate` passes for both the marketplace and the plugin.
 
 Install from the GitHub marketplace, either in one step or in two:
 
@@ -27,13 +27,14 @@ After editing a skill, run `/reload-plugins` in the session. Then inspect the sk
 
 ## Codex / ChatGPT plugin-capable environments
 
-> **Untested:** the Codex packaging has not been installed in any Codex host yet, and its manifest fields have not been checked by a Codex validator.
+> **Tested 2026-11-11 (Codex 0.167.0, Windows, scratch `CODEX_HOME`):** `codex plugin marketplace add bassemZohdy/core-skills` then `codex plugin add core-skills@core-skills` installed the plugin, enabled, at version 0.1.0 with all eight skills and the icon. Not tested: the interactive `/plugins` browser and invoking a `$<skill>` prompt (needs a signed-in Codex). The manifest follows the current Codex submission docs, but no Codex validator was run.
 
 ```text
 codex plugin marketplace add bassemZohdy/core-skills
+codex plugin add core-skills@core-skills
 ```
 
-Then run `codex` and open `/plugins` to browse and install. The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and references `./skills/`; the repository marketplace file is `.agents/plugins/marketplace.json`. Mention a skill with `$<skill>` or use `/skills`.
+Or run `codex` and open `/plugins` to browse and install. The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and references `./skills/`; the repository marketplace file is `.agents/plugins/marketplace.json`. Mention a skill with `$<skill>` or use `/skills`.
 
 ## Skills only, without the plugin
 
