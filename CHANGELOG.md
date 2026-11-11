@@ -5,6 +5,7 @@ All notable changes to this repository. The first tag is `v0.1.0`.
 ## 0.1.0 - 2026-11-11
 
 ### Added
+- CI validates every skill with the official `skills-ref` validator (pinned commit).
 - `plugin/evals/`: 16 behavior cases and 128 trigger cases; `docs/EVALS.md` records how to run them and the 2026-11-11 results.
 - `docs/SMOKE-TEST.md`: install smoke test for Claude Code and Codex in a scratch config directory.
 - `plugin/assets/icon.svg`, referenced as the Codex `composerIcon` and `logo`.

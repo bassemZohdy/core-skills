@@ -51,7 +51,7 @@ The checker does not launch Claude or Codex and cannot prove behavioral compatib
 
 ## Provenance and status
 
-The skills were migrated from `bassemZohdy/ai-skills` main and may since have been edited here; see [docs/PROVENANCE.md](docs/PROVENANCE.md). Cross-agent behavioral evaluation is still pending.
+The skills were migrated from `bassemZohdy/ai-skills` main and have been edited here since; this repository is now the canonical home of the eight skills (see [docs/PROVENANCE.md](docs/PROVENANCE.md)). Results of the Claude Code evals are in [docs/EVALS.md](docs/EVALS.md); there is no cross-agent evaluation beyond a Codex install and one invocation.
 
 ## License
 

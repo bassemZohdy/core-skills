@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [█████████████████████████████░] 39/40 (97%) · P0 5/5 · P1 9/9 · P2 20/21 · P3 5/5
+**Progress:** [██████████████████████████████] 40/40 (100%) · P0 5/5 · P1 9/9 · P2 21/21 · P3 5/5
 
 ## How this was checked
 
@@ -225,7 +225,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - **Status (partial):** done — flat-YAML frontmatter parsing, Agent Skills limits, skill discovery, marketplace source resolution, manifest parity, unknown-skill relationship check, stub-body check. Reciprocal-reference check now added. Remaining: Codex listing limits (needs the T30a re-verification).
   - **Done 2026-11-11.** Codex listing limits (name, short and long description, developer name, capabilities, default prompts, icon files, marketplace displayName) and the required `Output`, `Relationship`, `Examples` sections are now checked, with tests (24 cases).
 - [x] **T32 Test the checker.** It has no tests, so nothing shows it fails when it should. Move the logic into functions and add fixtures for a broken name, a missing key, an over-long description, and a wrong marketplace path, each expected to fail.
-- [ ] **T33 Extend CI (`.github/workflows/validate.yml`).**
+- [x] **T33 Extend CI (`.github/workflows/validate.yml`).**
   - It triggers on both `push` and `pull_request`, so every PR branch runs twice; limit `push` to `main`.
   - Add the official validator, `skills-ref validate` per skill (from the agentskills repository).
   - Add `claude plugin validate . --strict` if it runs without credentials **(verify)**.
@@ -233,6 +233,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Add Dependabot for the action versions.
   - **Status (partial):** done — `push` limited to `main`, checker tests run in CI, `.github/dependabot.yml` added. Not done — `skills-ref validate` (installing it from an external git repo was blocked by the session's permission classifier, so it is unverified; install it manually or grant the permission), `claude plugin validate . --strict` in CI (needs the Claude CLI installed on the runner, and would now fail on the missing-version warning from T04), version-bump check (not needed under T04 option A).
   - **Update 2026-11-11:** `claude plugin validate` works without credentials (checked in a scratch config dir), so CI now installs a pinned Claude Code and runs it on the marketplace and the plugin (non-strict, because of the intentional no-version warning). Still open: `skills-ref validate`, whose install was blocked by the permission classifier; install it yourself or allow it, then add one CI step.
+  - **Done 2026-11-11 with your approval.** `skills-ref` (agentskills commit 83021e2, `skills-ref` subdirectory) installed in a throwaway venv: all eight skills report "Valid skill" (on Windows `define` needs `PYTHONUTF8=1` because the tool opens files with the default encoding). CI now installs that pinned commit and validates every skill. `claude plugin validate --strict` is not used: it fails on the intentional missing-version warning (decision D2). The version-bump check is not needed under D2.
 - [x] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
 
 ---
@@ -258,11 +259,11 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 | # | Decision | Recommendation |
 | --- | --- | --- |
-| D1 | Which repo is canonical for these eight skills? They now exist in both `ai-skills` and here, and the README says the source "is unchanged", so the copies will drift. | Make `core-skills` canonical and replace the upstream copies with a pointer. |
+| D1 | Which repo is canonical for these eight skills? They now exist in both `ai-skills` and here, and the README says the source "is unchanged", so the copies will drift. | Make `core-skills` canonical and replace the upstream copies with a pointer. **Decided 2026-11-11: `core-skills` is canonical.** Replacing the copies in `ai-skills` with a pointer is a change in that repo and is not done here. |
 | D2 | Version policy (T04). | Drop the pinned version from the Claude manifest until 1.0. |
 | D3 | What `define` is (T08). | On-demand skill with a real trigger. |
 | D4 | Keep the generic names, or prefix them? | Keep; the plugin namespace covers Claude Code. Document the collisions (T09) and discourage the copy install. |
-| D5 | Submit to the Claude and Codex directories? This decides whether the icon and listing work in T30a is needed. | Defer until the evals show a positive delta. |
+| D5 | Submit to the Claude and Codex directories? This decides whether the icon and listing work in T30a is needed. | Defer until the evals show a positive delta. **Decided 2026-11-11: defer.** |
 
 ## Suggested order
 
