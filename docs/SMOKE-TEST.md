@@ -21,7 +21,7 @@ codex plugin add core-skills@core-skills
 codex plugin list
 ```
 
-Expect: `core-skills@core-skills` shows `installed, enabled` at version `0.1.0`, and eight `skills/<name>/SKILL.md` files plus `assets/icon.svg` under `<CODEX_HOME>/plugins/cache/core-skills/core-skills/0.1.0/`. Invoking a skill (`$plan`) needs a signed-in Codex and was not run in the scratch home.
+Expect: `core-skills@core-skills` shows `installed, enabled` at version `0.1.0`, and eight `skills/<name>/SKILL.md` files plus `assets/icon.svg` under `<CODEX_HOME>/plugins/cache/core-skills/core-skills/0.1.0/`. Invoking a skill (`$plan`) needs a signed-in Codex, which a scratch home does not have; run `codex exec '$plan ...'` in your real config, then run `codex plugin remove` and `codex plugin marketplace remove` to undo it.
 
 ## Record
 
@@ -33,4 +33,5 @@ Write the date, host versions, source used (local path or GitHub), and the resul
 | --- | --- | --- | --- |
 | 2026-11-11 | Claude Code 2.1.322 | GitHub `bassemZohdy/core-skills` at f856710 | installed, enabled, 8 skills, version = commit SHA |
 | 2026-11-11 | Claude Code 2.1.322 | installed copy from GitHub at 000d08f, loaded with `--plugin-dir` | `/core-skills:plan` ran and followed the skill |
-| 2026-11-11 | Codex 0.167.0 | GitHub `bassemZohdy/core-skills` at f856710 | installed, enabled, 0.1.0, 8 skills and icon; `$skill` not run |
+| 2026-11-11 | Codex 0.167.0 | GitHub `bassemZohdy/core-skills` at f856710 | installed, enabled, 0.1.0, 8 skills and icon |
+| 2026-11-11 | Codex 0.167.0 | GitHub, real Codex config, removed afterwards | `$plan` ran: Codex said it would use the plan skill and returned the three requested lines |

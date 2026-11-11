@@ -27,7 +27,7 @@ After editing a skill, run `/reload-plugins` in the session. Then inspect the sk
 
 ## Codex / ChatGPT plugin-capable environments
 
-> **Tested 2026-11-11 (Codex 0.167.0, Windows, scratch `CODEX_HOME`):** `codex plugin marketplace add bassemZohdy/core-skills` then `codex plugin add core-skills@core-skills` installed the plugin, enabled, at version 0.1.0 with all eight skills and the icon. Not tested: the interactive `/plugins` browser and invoking a `$<skill>` prompt (needs a signed-in Codex). The manifest follows the current Codex submission docs, but no Codex validator was run.
+> **Tested 2026-11-11 (Codex 0.167.0, Windows, scratch `CODEX_HOME`):** `codex plugin marketplace add bassemZohdy/core-skills` then `codex plugin add core-skills@core-skills` installed the plugin, enabled, at version 0.1.0 with all eight skills and the icon. A later `codex exec '$plan ...'` run in a signed-in Codex used the skill. Not tested: the interactive `/plugins` browser. The manifest follows the current Codex submission docs, but no Codex validator was run.
 
 ```text
 codex plugin marketplace add bassemZohdy/core-skills
