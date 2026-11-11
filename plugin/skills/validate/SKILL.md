@@ -1,6 +1,6 @@
 ---
 name: validate
-description: Validate artifacts or changes against requirements, contracts, expected results, or acceptance criteria. Use when checking correctness, verifying a fix, testing readiness, or validating a deliverable. Run appropriate authorized checks and distinguish passing evidence from failures, execution errors, and missing coverage.
+description: Check a result against stated requirements or acceptance criteria by running checks, and report PASS, FAIL, or INCOMPLETE with the evidence. Use this skill when the user asks to verify, validate, or test a fix or deliverable, asks whether something is ready or done, or asks whether the acceptance criteria are met. Distinguishes failures from checks that errored or were not run, and never reports an unrun check as a pass. Not for judging design quality (review).
 license: Apache-2.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: investigate
-description: Investigate unclear needs, situations, incidents, behaviors, or questions through iterative exploration, evidence gathering, and targeted inquiry with users or other authorized sources. Use when the goal, facts, requirements, cause, or context must first be discovered. Do not assume investigation means only root-cause analysis or require an interview for every case.
+description: Find out what is unknown about a need, problem, or incident before anything can be answered or decided, by exploring the available evidence and asking targeted questions. Use this skill when the request is vague or underspecified, when the cause of a problem is not yet known and facts must still be gathered, or when the user says they need something but has not said what. Ask few, neutral questions and do not assume a solution. Not for explaining evidence already in hand (analyze) or looking up public sources (research).
 license: Apache-2.0
 ---
 

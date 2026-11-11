@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review documents, code, designs, plans, workflows, or proposed changes for correctness, coherence, fitness for purpose, and consequential risks. Use for requested reviews, critiques, audits, and review-and-improve cycles. Distinguish evidence-backed judgment from checks actually executed and preserve the requested editing scope.
+description: Critique a document, code, design, plan, or proposed change and report the consequential problems, risks, and missing pieces. Use this skill when the user asks to review, critique, audit, or give feedback on something, or asks whether a change is good to merge. Reports supported findings with locations and fixes, says plainly when none were found, and does not edit unless asked. Not for running checks against acceptance criteria (validate) or choosing between options (evaluate).
 license: Apache-2.0
 ---
 

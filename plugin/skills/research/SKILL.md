@@ -1,6 +1,6 @@
 ---
 name: research
-description: Conduct source-grounded research and fact-checking on questions requiring evidence beyond the provided context. Use for research, current-status checks, contested claims, or evidence-backed briefings. Scale effort to importance; do not turn routine answers into exhaustive investigations.
+description: Find and weigh evidence from sources outside the conversation, then give a calibrated, cited answer. Use this skill when the user asks to look something up, fact-check a claim, check the latest or current status of something, find sources, compare what different sources say, or confirm whether something is true. Counts independent origins rather than links, separates vendor claims from demonstrated results, and says when something could not be verified. Not for discovering unknowns from the user or their systems (investigate) or settling what a term means (define).
 license: Apache-2.0
 ---
 
