@@ -23,7 +23,7 @@ MIN_BODY_WORDS = 200
 EXPECTED_LICENSE = "Apache-2.0"
 PLUGIN_NAME = "core-skills"
 # Bold labels that appear in relationship sections but are not skills.
-NON_SKILL_TERMS = {"interview"}
+NON_SKILL_TERMS = set()
 RELATIONSHIP_HEADINGS = ("Boundaries", "Boundaries and integration")
 
 
@@ -101,10 +101,16 @@ def check_skills(root, errors):
             errors.append(f"{name}: {lines} lines (keep SKILL.md under {MAX_LINES})")
         if len(body.split()) < MIN_BODY_WORDS or not re.search(r"(?m)^## ", body):
             errors.append(f"{name}: body looks like a stub (needs {MIN_BODY_WORDS}+ words and a '## ' section)")
+    related = {}
     for name, body in bodies.items():
-        for term in relationship_terms(body):
-            if term not in names and term not in NON_SKILL_TERMS:
-                errors.append(f"{name}: relationship section names unknown skill {term!r}")
+        terms = set(relationship_terms(body))
+        related[name] = terms & names
+        for term in sorted(terms - names - NON_SKILL_TERMS):
+            errors.append(f"{name}: relationship section names unknown skill {term!r}")
+    for name, others in related.items():
+        for other in sorted(others):
+            if name not in related.get(other, set()):
+                errors.append(f"{name}: relationship to {other!r} is not reciprocated by {other}")
     return names
 
 
