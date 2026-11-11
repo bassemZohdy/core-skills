@@ -1,6 +1,6 @@
 ---
 name: evaluate
-description: Judge how well one option fits a purpose, or compare several options against explicit criteria and recommend a choice. Use this skill when the user asks which option to pick, whether something is a good fit, to compare vendors, tools, designs, or approaches, to shortlist, or to weigh build versus buy. Applies hard requirements first, then scored preferences, and flags unknowns and near ties. Not for finding defects in an artifact (review) or explaining how something works (analyze).
+description: Judge how well one option fits a purpose, or compare several options against explicit criteria and recommend a choice. Use this skill when the user asks which option to pick, whether something is a good fit, to compare or rank vendors, providers, tools, designs, or approaches, to shortlist, or to weigh build versus buy. Applies hard requirements first, then scored preferences, and flags unknowns and near ties. Not for finding defects in an artifact (review) or explaining how something works (analyze).
 license: Apache-2.0
 ---
 

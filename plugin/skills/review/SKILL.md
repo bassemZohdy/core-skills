@@ -1,6 +1,6 @@
 ---
 name: review
-description: Critique a document, code, design, plan, or proposed change and report the consequential problems, risks, and missing pieces. Use this skill when the user asks to review, critique, audit, or give feedback on something, or asks whether a change is good to merge, including a quick look at one function, snippet, or paragraph. Reports supported findings with locations and fixes, says plainly when none were found, and does not edit unless asked. Not for running checks against acceptance criteria (validate) or choosing between options (evaluate).
+description: Critique a document, code, design, plan, or proposed change and report the consequential problems, risks, and missing pieces. Use this skill when the user asks to review, critique, audit, or give feedback on something, or asks whether a change is good to merge, including a quick look at one function, snippet, paragraph, or pull request diff. Reports supported findings with locations and fixes, says plainly when none were found, and does not edit unless asked. Not for running checks against acceptance criteria (validate) or choosing between options (evaluate).
 license: Apache-2.0
 ---
 
