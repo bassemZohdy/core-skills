@@ -2,6 +2,8 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
+**Progress:** [█████████░░░░░░░░░░░░░░░░░░░░░] 12/40 (30%) · P0 5/5 · P1 0/9 · P2 4/21 · P3 3/5
+
 ## How this was checked
 
 | Check | Result |
@@ -31,23 +33,24 @@ Priorities: **P0** wrong or contradictory today · **P1** needed before a releas
 
 ## P0 — Fix what is wrong today
 
-- [ ] **T01 Remove upstream residue from skill bodies.** These sentences refer to things that do not exist in this repo, so the agent has no referent for them.
+- [x] **T01 Remove upstream residue from skill bodies.** These sentences refer to things that do not exist in this repo, so the agent has no referent for them.
   - `plugin/skills/evaluate/SKILL.md:72` — "Do not require the original `eval/` workspace, status files, Python scorer, exports, orchestration…"
   - `plugin/skills/research/SKILL.md:83` — "Do not inherit the original eval-skills `eval/` contract, six-label conversion, package manifest, or workflow scripts."
   - `plugin/skills/investigate/SKILL.md:120` — "**Interview:** An optional inquiry method or future specialized skill" (no such skill).
   - Done when: `grep -n "eval/\|eval-skills\|future specialized" plugin/skills` returns nothing.
 
-- [ ] **T02 Resolve the licensing contradiction.** `README.md:19` says "No repository-wide license is asserted", and `docs/RELEASE-CHECKLIST.md:10` leaves licensing undecided. But the root `LICENSE` is Apache-2.0 (identical to upstream), every `SKILL.md` declares `license: Apache-2.0`, the Codex manifest declares it, and `check.py` enforces it.
+- [x] **T02 Resolve the licensing contradiction.** `README.md:19` says "No repository-wide license is asserted", and `docs/RELEASE-CHECKLIST.md:10` leaves licensing undecided. But the root `LICENSE` is Apache-2.0 (identical to upstream), every `SKILL.md` declares `license: Apache-2.0`, the Codex manifest declares it, and `check.py` enforces it.
   - State the license in the README, tick the checklist item, add `"license": "Apache-2.0"` to `plugin/.claude-plugin/plugin.json`.
   - Add a copyright/attribution line (upstream has no `NOTICE` file, so there is none to carry over).
 
-- [ ] **T03 Resolve the marketplace-status contradiction.** `README.md:11` says "Marketplace publishing has not been verified"; `docs/INSTALL.md:9-12` presents marketplace install commands as fact. Either run the install (see T37) and record the versions tested, or label the commands untested in both files.
+- [x] **T03 Resolve the marketplace-status contradiction.** `README.md:11` says "Marketplace publishing has not been verified"; `docs/INSTALL.md:9-12` presents marketplace install commands as fact. Either run the install (see T37) and record the versions tested, or label the commands untested in both files.
 
-- [ ] **T04 Decide the version policy before the first user installs.** `plugin.json` pins `"version": "0.1.0"`. Per the Claude Code docs, a pinned version "keeps every user on the cached copy until its author changes the string, however many commits they push."
+- [x] **T04 Decide the version policy before the first user installs.** `plugin.json` pins `"version": "0.1.0"`. Per the Claude Code docs, a pinned version "keeps every user on the cached copy until its author changes the string, however many commits they push."
   - Option A (recommended while pre-1.0): drop `version` from the Claude manifest so installs track commits. `check.py` currently requires it in both manifests and Codex requires it, so relax the Claude check only.
   - Option B: keep it and bump on every change to `plugin/`, enforced in CI (T33).
+  - Done: option A applied (decision D2, reversible). `claude plugin validate ./plugin` now reports the warning "No version specified"; accepted. Codex manifest keeps `0.1.0`. Whether a relative-path marketplace source then tracks commits is unverified; check by installing (T37).
 
-- [ ] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
+- [x] **T05 Pin provenance.** `README.md:19` says the skills match upstream "main", which stops being checkable as soon as upstream moves. Record upstream commit `851945057f97be8fc13fd3d7bc6467200f7dc8a2` in a `docs/PROVENANCE.md`, move the migration paragraph there, and reword it to "migrated from" once T01 or any later task edits a skill.
 
 ---
 
@@ -101,6 +104,7 @@ Descriptions drive selection; body "Relationships" sections load only after a sk
 Do the baseline run (T11–T12) **before** the content rewrites in the next sections, so each rewrite is measured.
 
 - [ ] **T11 Add an eval suite with `claude plugin eval`.** Available locally (needs Claude Code ≥ 2.1.269; installed: 2.1.322). Layout: `plugin/evals/<case>/prompt.md` plus `graders/*.md`; it runs a no-plugin baseline arm by default and reports the score delta.
+  - **Status (started):** pipeline proven with one case, `plugin/evals/validate-incomplete` (validate: must report INCOMPLETE when required checks are not run). Result, 1 run per arm (about $0.16 per run, $0.32 total across two runs): with skill 1.00, without 1.00, delta 0.00. A `tool_used: Skill` grader confirmed the skill fired in the with-arm, so on this case the loaded skill added nothing over the baseline (n=1 per arm). The case is too easy: the baseline model already gets it right. Next: harder cases where the baseline plausibly fails (see the grader ideas below). The full suite has not been run; it spawns paid runs on the maintainer credential and needs a go-ahead.
   - Two or three output-quality cases per skill with realistic inputs (a real diff to review, a vendor comparison with one unverifiable claim, a vague requirement to investigate, logs with two plausible causes).
   - Graders must check observable behavior that the baseline could plausibly miss, for example: evaluate marks an unverified gate UNKNOWN rather than FAIL; validate reports INCOMPLETE when a required check cannot run; research does not count three articles repeating one press release as three sources; review-only requests leave the file unedited.
   - Add `evals/results/` to a new `.gitignore`.
@@ -174,8 +178,8 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 ## P2 — Packaging and manifests
 
-- [ ] **T29 Align the Claude manifest with the Codex one.** `plugin/.claude-plugin/plugin.json` lacks `license`, `repository`, and `keywords`, and its description ("Eight reusable, platform-agnostic foundational skills") differs from the other three files. Use one description string everywhere.
-- [ ] **T30 Stop hardcoding "eight".** The count appears in both manifests, both marketplace descriptions, the Codex `longDescription`, `README.md`, `docs/INSTALL.md`, and the `check.py` PASS message. Drop the number from the prose or have `check.py` verify it.
+- [x] **T29 Align the Claude manifest with the Codex one.** `plugin/.claude-plugin/plugin.json` lacks `license`, `repository`, and `keywords`, and its description ("Eight reusable, platform-agnostic foundational skills") differs from the other three files. Use one description string everywhere.
+- [x] **T30 Stop hardcoding "eight".** The count appears in both manifests, both marketplace descriptions, the Codex `longDescription`, `README.md`, `docs/INSTALL.md`, and the `check.py` PASS message. Drop the number from the prose or have `check.py` verify it.
 - [ ] **T30a Fix the Codex manifest and marketplace against the current docs.**
   - `interface.shortDescription` is 46 characters; the submission page gives a 30-character limit **(verify)**.
   - `interface.capabilities` includes "Interactive", which appears in no doc example; values look free-form **(verify)**.
@@ -194,28 +198,31 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Check description parity across the four manifest files, the Claude manifest license, and the Codex listing limits from T30a.
   - Check that every skill named in another skill's body exists (this would have caught "Interview"), and that the pairs from T10 reference each other.
   - Replace the `> 600` characters heuristic (`:40`).
-- [ ] **T32 Test the checker.** It has no tests, so nothing shows it fails when it should. Move the logic into functions and add fixtures for a broken name, a missing key, an over-long description, and a wrong marketplace path, each expected to fail.
+  - **Status (partial):** done — flat-YAML frontmatter parsing, Agent Skills limits, skill discovery, marketplace source resolution, manifest parity, unknown-skill relationship check, stub-body check. Remaining — reciprocal-reference check (needs T10) and Codex listing limits (needs the T30a re-verification).
+- [x] **T32 Test the checker.** It has no tests, so nothing shows it fails when it should. Move the logic into functions and add fixtures for a broken name, a missing key, an over-long description, and a wrong marketplace path, each expected to fail.
 - [ ] **T33 Extend CI (`.github/workflows/validate.yml`).**
   - It triggers on both `push` and `pull_request`, so every PR branch runs twice; limit `push` to `main`.
   - Add the official validator, `skills-ref validate` per skill (from the agentskills repository).
   - Add `claude plugin validate . --strict` if it runs without credentials **(verify)**.
   - If T04 option B is chosen, fail when `plugin/` changes without a version bump.
   - Add Dependabot for the action versions.
-- [ ] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
+  - **Status (partial):** done — `push` limited to `main`, checker tests run in CI, `.github/dependabot.yml` added. Not done — `skills-ref validate` (installing it from an external git repo was blocked by the session's permission classifier, so it is unverified; install it manually or grant the permission), `claude plugin validate . --strict` in CI (needs the Claude CLI installed on the runner, and would now fail on the missing-version warning from T04), version-bump check (not needed under T04 option A).
+- [x] **T34 Add `.gitattributes` with `* text=auto eol=lf`.** The index is LF but this Windows checkout is CRLF (`core.autocrlf=true`), so any tool that hashes working-tree files will not match upstream.
 
 ---
 
 ## P3 — Docs and repo hygiene
 
-- [ ] **T35 Rewrite `README.md` for users.** Add the one-step install line the validator asks for (`/plugin install core-skills --marketplace bassemZohdy/core-skills`), a one-line "use it when" per skill, the invocation forms (`/core-skills:<skill>` in Claude Code, `$<skill>` in Codex), and a link to `docs/INSTALL.md`. Move migration history out (T05).
-- [ ] **T36 Make `docs/INSTALL.md` exact.**
+- [x] **T35 Rewrite `README.md` for users.** Add the one-step install line the validator asks for (`/plugin install core-skills --marketplace bassemZohdy/core-skills`), a one-line "use it when" per skill, the invocation forms (`/core-skills:<skill>` in Claude Code, `$<skill>` in Codex), and a link to `docs/INSTALL.md`. Move migration history out (T05).
+- [x] **T36 Make `docs/INSTALL.md` exact.**
   - Claude local testing: `claude --plugin-dir ./plugin`, then `/reload-plugins` after edits (replaces "test with Claude Code's plugin loader").
   - Codex: `codex plugin marketplace add bassemZohdy/core-skills`, then `/plugins` in the CLI (replaces "Add the repository marketplace in a supported plugin environment"). The local CLI (0.167.0) also has `codex plugin add`, which the docs do not mention.
   - Give the actual copy command for the skills-only install and the collision warning from T09.
   - Say `python scripts/check.py` for Windows, where `python3` may not exist.
 - [ ] **T37 Run and record a real install on both hosts.** Add the marketplace, install, confirm eight skills are listed, invoke one. Record host versions in `docs/RELEASE-CHECKLIST.md` and tick line 9.
 - [ ] **T38 Add `CHANGELOG.md` and tag releases.** There are no tags; the first release should be tagged after P0 and P1.
-- [ ] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
+  - **Status (partial):** `CHANGELOG.md` added (Unreleased section). Tagging waits for the P0 and P1 tasks to finish.
+- [x] **T39 Add a short `AGENTS.md` / `CLAUDE.md` for contributors:** skills live only in `plugin/skills/`, run `check.py` and the evals before committing, bump the version per T04.
 
 ---
 

@@ -4,21 +4,57 @@ One source of skill definitions at `plugin/skills/`, packaged for both Claude an
 
 ## Claude Code
 
-From Claude Code, add this GitHub repository as a marketplace and install the plugin:
+> **Untested:** the marketplace commands below follow the Claude Code documentation but have not yet been run against this repository (see `docs/RELEASE-CHECKLIST.md`). `claude plugin validate` passes for both the marketplace and the plugin, which checks the manifests only, not installation.
+
+Install from the GitHub marketplace, either in one step or in two:
+
+```text
+/plugin install core-skills --marketplace bassemZohdy/core-skills
+```
 
 ```text
 /plugin marketplace add bassemZohdy/core-skills
 /plugin install core-skills@core-skills
 ```
 
-For a local clone, test with Claude Code's plugin loader against `./plugin`. After installing, inspect the skill list and run one targeted prompt per skill.
+To try a local clone without installing:
+
+```text
+claude --plugin-dir ./plugin
+```
+
+After editing a skill, run `/reload-plugins` in the session. Then inspect the skill list and run one targeted prompt per skill. Plugin skills are invoked as `/core-skills:<skill>`.
 
 ## Codex / ChatGPT plugin-capable environments
 
-The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and references `./skills/`. The local marketplace file is `.agents/plugins/marketplace.json`. Add the repository marketplace in a supported plugin environment; the host controls installation and activation. A plain skills-only alternative is copying `plugin/skills/*` to a supported user-level skills directory, such as `~/.agents/skills/`.
+> **Untested:** the Codex packaging has not been installed in any Codex host yet, and its manifest fields have not been checked by a Codex validator.
 
-## Distribution and test status
+```text
+codex plugin marketplace add bassemZohdy/core-skills
+```
 
-All eight skills use Agent Skills-compatible `SKILL.md` frontmatter; plugin manifests do not invoke tools themselves. Run `python3 scripts/check.py` to validate paths, metadata and manifest links before release. This checker does not launch Claude or Codex and cannot establish runtime behavior or directory publication. Do not describe this repository as marketplace-approved until submission succeeds.
+Then run `codex` and open `/plugins` to browse and install. The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and references `./skills/`; the repository marketplace file is `.agents/plugins/marketplace.json`. Mention a skill with `$<skill>` or use `/skills`.
+
+## Skills only, without the plugin
+
+Copy the skill directories to a user-level skills directory:
+
+- Claude Code: `~/.claude/skills/`
+- Codex and other Agent Skills hosts: `~/.agents/skills/`
+
+```text
+cp -r plugin/skills/* ~/.agents/skills/
+```
+
+Prefer the plugin install on Claude Code. A personal skill named `plan` or `review` may collide with Claude Code's built-in commands of the same names (not yet tried; the docs say a personal skill replaces a built-in command of the same name but not its aliases), whereas plugin skills are namespaced (`/core-skills:plan`). Codex does not merge skills with duplicate names; both can appear in its selector.
+
+## Checking a clone
+
+```text
+python scripts/check.py
+python -m unittest discover -s tests
+```
+
+On Windows, use `python` (a `python3` command may be a Microsoft Store stub). The checker does not launch Claude or Codex and cannot establish runtime behavior or directory publication. Do not describe this repository as marketplace-approved until submission succeeds.
 
 Official references: [Claude Code plugin documentation](https://code.claude.com/docs/en/plugins) and [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins).

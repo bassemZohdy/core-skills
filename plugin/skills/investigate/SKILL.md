@@ -117,7 +117,7 @@ Do not require a fixed schema, questionnaire, evidence ledger, or report for rou
 
 ## Relationships
 
-- **Interview:** An optional inquiry method or future specialized skill, not an obligatory dependency.
+- **Interview:** An optional inquiry method (asking the user or a stakeholder targeted questions), not a separate skill or an obligatory dependency.
 - **Research:** Discovers and evaluates external sources; Investigate decides what needs to be learned and orchestrates the inquiry toward understanding.
 - **Analyze:** Examines relationships, patterns, and causes in available evidence; Investigate can use it to test explanations and decide what additional evidence to seek.
 - **Define:** Clarifies meanings after concepts or requirements have been uncovered.

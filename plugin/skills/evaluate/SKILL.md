@@ -69,7 +69,7 @@ Logical outcomes only; no required runtime state machine.
 
 Default to a concise explanation of criteria, material evidence, and a recommendation or no-decision. Add a comparison table, gate matrix, scoring matrix, cost scenarios, or sensitivity analysis only when complexity warrants them or the user asks. State which criteria were assumed, not assessed, or user-approved. For scored evaluations, include anchored scale, weights, evidence links, missing data handling, and ranking sensitivity.
 
-Do not require the original `eval/` workspace, status files, Python scorer, exports, orchestration, or user-approval step at every stage. Those belong to specialized multi-stage evaluation workflows.
+Do not require a separate workspace, status files, scoring scripts, exports, orchestration, or a user-approval step at every stage. Those belong to specialized multi-stage evaluation workflows.
 
 ## Boundaries
 

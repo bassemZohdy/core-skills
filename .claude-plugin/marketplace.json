@@ -4,13 +4,13 @@
     "name": "Bassem Zohdy"
   },
   "metadata": {
-    "description": "Eight portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating."
+    "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating."
   },
   "plugins": [
     {
       "name": "core-skills",
       "source": "./plugin",
-      "description": "Eight portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating."
+      "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating."
     }
   ]
 }
