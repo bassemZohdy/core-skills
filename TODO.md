@@ -2,7 +2,7 @@
 
 Review date: 2026-11-11, against commit `7849588`. Scope: all eight `plugin/skills/*/SKILL.md`, both plugin manifests, both marketplace files, `scripts/check.py`, CI, README and docs.
 
-**Progress:** [████████████████████░░░░░░░░░░] 26/40 (65%) · P0 5/5 · P1 4/9 · P2 14/21 · P3 3/5
+**Progress:** [█████████████████████████░░░░░] 33/40 (82%) · P0 5/5 · P1 7/9 · P2 18/21 · P3 3/5
 
 ## How this was checked
 
@@ -81,11 +81,12 @@ Descriptions drive selection; body "Relationships" sections load only after a sk
   - Option A (recommended): make it on-demand — terminology disputes, "is X a Y" classification, naming a new concept, glossary work — and say so in the description.
   - Option B: keep the ambient intent and document that hosts should put its core rule in always-on instructions (`CLAUDE.md` / `AGENTS.md`).
 
-- [ ] **T09 Document name collisions with host built-ins.** The names are maximally generic.
+- [x] **T09 Document name collisions with host built-ins.** The names are maximally generic.
   - Claude Code: plugin skills are invoked as `/core-skills:plan`, and the bare name works only "unless another command already uses that name". `/plan` and `/review` are already taken, so bare invocation will not reach these skills **(verify by trying it)**.
   - `README.md:11` recommends copying into `~/.claude/skills/`. Per the docs a personal skill "replaces the bundled command, but not its aliases", so that copy can shadow the built-in `/plan`. Warn about it or recommend the plugin install only.
   - Codex: duplicate names are not merged; "both can appear in skill selectors".
   - `plan` and `review` should also say what to do when the host has a native plan mode or code-review command (see T15, T17).
+  - **Done 2026-11-11.** Verified on Claude Code 2.1.322: with the plugin loaded, the session lists only `core-skills:<skill>`, no bare `plan`/`review`. A personal-skill copy registers bare `plan` and `review`. Interactive shadowing of the built-ins is not tested (headless mode does not show them). `plan` and `review` host-native-mode notes landed with T15 and T17. Written up in `docs/INSTALL.md`.
 
 - [x] **T10 Trim the "Relationships" sections to the nearest neighbors and make them consistent.** Today they are asymmetric and three skills have none:
 
@@ -106,23 +107,27 @@ Descriptions drive selection; body "Relationships" sections load only after a sk
 
 Do the baseline run (T11–T12) **before** the content rewrites in the next sections, so each rewrite is measured.
 
-- [ ] **T11 Add an eval suite with `claude plugin eval`.** Available locally (needs Claude Code ≥ 2.1.269; installed: 2.1.322). Layout: `plugin/evals/<case>/prompt.md` plus `graders/*.md`; it runs a no-plugin baseline arm by default and reports the score delta.
+- [x] **T11 Add an eval suite with `claude plugin eval`.** Available locally (needs Claude Code ≥ 2.1.269; installed: 2.1.322). Layout: `plugin/evals/<case>/prompt.md` plus `graders/*.md`; it runs a no-plugin baseline arm by default and reports the score delta.
   - **Status (started):** pipeline proven with one case, `plugin/evals/validate-incomplete` (validate: must report INCOMPLETE when required checks are not run). Result, 1 run per arm (about $0.16 per run, $0.32 total across two runs): with skill 1.00, without 1.00, delta 0.00. A `tool_used: Skill` grader confirmed the skill fired in the with-arm, so on this case the loaded skill added nothing over the baseline (n=1 per arm). The case is too easy: the baseline model already gets it right. Update: 15 harder cases added (two per skill, aimed at behaviors a default model may miss: unknown vs fail gates, single-origin sources, near ties, no invented plan constraints, and so on), each with a skill-fired grader. A first baseline run (1 run per arm, cap $5) was started; its results are not yet recorded here, so T12 stays open. T11 stays unticked until the per-skill case count and the results are reviewed.
   - Two or three output-quality cases per skill with realistic inputs (a real diff to review, a vendor comparison with one unverifiable claim, a vague requirement to investigate, logs with two plausible causes).
   - Graders must check observable behavior that the baseline could plausibly miss, for example: evaluate marks an unverified gate UNKNOWN rather than FAIL; validate reports INCOMPLETE when a required check cannot run; research does not count three articles repeating one press release as three sources; review-only requests leave the file unedited.
   - Add `evals/results/` to a new `.gitignore`.
+  - **Done 2026-11-11.** 16 behavior cases (two per skill) and 48 trigger cases (T13) are in `plugin/evals/`, run with `claude plugin eval`; results and how to run are in `docs/EVALS.md`.
 
-- [ ] **T12 Record the baseline and act on it.** For each skill note the with/without delta. A skill with no measurable delta needs sharper content (the sections below) or should be cut. Write the numbers into `docs/RELEASE-CHECKLIST.md`.
+- [x] **T12 Record the baseline and act on it.** For each skill note the with/without delta. A skill with no measurable delta needs sharper content (the sections below) or should be cut. Write the numbers into `docs/RELEASE-CHECKLIST.md`.
   - **Status (baseline recorded, not yet acted on):** first run 2026-11-11, 16 cases, 1 run per arm, $2.27, Claude Code 2.1.322. Mean delta 0.00: 14 of 16 cases score 1.00 with and without the plugin; 2 cases (`investigate-vague-need`, `review-clean-diff-no-manufactured-findings`) score 0.00 in both arms (unanimous judge FAIL, model answers were not kept, so grader strictness is not ruled out). The skill fired in only 6 of 16 with-arm runs: evaluate 2/2, define 1/2, analyze 1/2, plan 1/2, validate 1/2, and investigate, research and review 0/2. Reading: on these cases the skill text adds no measurable quality, and descriptions often fail to load the skill, which raises the priority of T06/T07 (trigger descriptions) over the content rewrites. One run per arm is noisy; repeat with `--runs 3` before cutting anything. Keep the model answers next time (`--keep-temp`) so failing cases can be judged.
   - **Plugin-arm repeat, 2026-11-11 (3 runs per case, content rewrite in place, $4.09, one cost cap hit):** criteria passed 41 of 48 graded runs; 2 runs were skipped by the cap, not failed. Failures: `review-clean-diff-no-manufactured-findings` 0/3 (the skill fired 3/3 but the answers still added speculative risks, e.g. leftover uses of the renamed variable), `evaluate-near-tie-sensitivity` 1 of 3, `investigate-vague-need` 1 of 3. I added a "no findings is a valid result" rule to `review`; a 3-run re-test of that case passed 1 of 3, and the skill fired in only that run, so firing is the larger issue there. Skill-fired counts moved a lot between runs (review 3/3 then 1/3), so treat firing rates as noise below about 6 runs.
+  - **Done 2026-11-11, decision recorded.** Full with/without run, 3 runs per arm, $7.01: criteria passed 44/48 with the plugin vs 38/48 without (mean delta +0.125). Per-skill table in `docs/EVALS.md`. Gains: investigate (3/3 vs 0/3 on `investigate-vague-need`), plus smaller ones for analyze, evaluate, review. Zero delta for define, plan, research, validate because the baseline already passes those cases (ceiling), so the decision is to keep all eight and add harder cases later rather than cut or rewrite them on this evidence.
 
 - [ ] **T13 Add trigger evals.** Per agentskills.io: about 20 queries per skill (8–10 that should trigger, 8–10 that should not), three runs each, pass at a 0.5 trigger rate, 60/40 train/validation split kept fixed across iterations.
   - Make the negatives near-misses aimed at the sibling skill from T07 (a "why did this happen, here are the logs" query must pick analyze, not investigate).
   - In `claude plugin eval`, use a `tool_used` grader on `Skill` with an `input_match` for the expected skill name.
+  - **Partly done 2026-11-11:** 48 cases (3 should-fire and 3 near-miss per skill), 2 runs each. All 24 near-misses passed; 21 of 24 should-fire cases fired in both runs, 3 never (`trigger-review-yes-1`, `trigger-validate-yes-2`, `trigger-validate-yes-3`). Short of the ~20 queries per skill and the 60/40 split, so left open; spend so far is about $27 across all evals, so more cases wait for your go-ahead. Details in `docs/EVALS.md`.
 
 - [ ] **T14 Smoke-test on Codex.** There is no documented Codex eval runner, so keep a short manual script: install, confirm eight skills are listed, run one `$<skill>` prompt each, record the Codex version. Tick `docs/RELEASE-CHECKLIST.md:9` only after this and T37.
 
 ---
+  - **Partly done 2026-11-11:** the manual script is `docs/SMOKE-TEST.md`. Codex 0.167.0 install from a local clone into a scratch `CODEX_HOME` listed the plugin as installed and enabled with all eight skills and the icon. Not done: invoking a `$<skill>` prompt (needs a signed-in Codex) and the install from the GitHub source, which waits for the merge.
 
 ## P2 — Per-skill content fixes
 
@@ -178,8 +183,11 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 - [x] **T24 Remove author-facing disclaimers from every body.** These defend the design to a reviewer and tell the agent nothing actionable. Examples: "These are logical outcomes, not mandatory runtime states or an orchestration protocol" (analyze, evaluate, investigate, plan, research, each in different words); "Do not create an artificial inheritance relationship or require an agent framework" (investigate); "Do not require all other skills, invent a shared skill lifecycle engine, or introduce a dependency on any particular project-management platform" (plan); "Do not require a separate Validate skill to run this internal quality gate" (analyze, plan).
   - **Done 2026-11-11** with T10, T22 and T28 in one pass. Regression guard: the same 16 cases on the plugin arm only ($1.37) show no criteria regressions (15 of 16 pass as before; `review-clean-diff-no-manufactured-findings` still fails). Skill firing 9/16 to 8/16 (one review case), within one-run noise.
 - [ ] **T25 Cut default-behavior restatements, guided by the T12 results.** Roughly 27–39% of sentences in each skill are prohibitions (rough regex count). Apply the agentskills.io test to each: "Would the agent get this wrong without this instruction?" Keep the ones the evals show matter.
-- [ ] **T26 Standardize the skeleton.** Two styles exist: define, review, and validate are prose; the other five use Inputs / Workflow / Quality gate / Outcomes / Relationships. Section names also vary for the same thing ("Output guidance", "Output", "Outcomes and output", "Output behavior", "Deliver the assessment", "Report the result"). Pick one outline and one set of names; keep sections optional where a skill has nothing to say.
-- [ ] **T27 Add one compact worked example per skill** showing a good output, not just a one-line rule. Put heavier templates (evaluate scoring matrix, plan work-package table) in `references/` with an explicit "read this when…" line, since no skill uses progressive disclosure today.
+- [x] **T26 Standardize the skeleton.** Two styles exist: define, review, and validate are prose; the other five use Inputs / Workflow / Quality gate / Outcomes / Relationships. Section names also vary for the same thing ("Output guidance", "Output", "Outcomes and output", "Output behavior", "Deliver the assessment", "Report the result"). Pick one outline and one set of names; keep sections optional where a skill has nothing to say.
+  - **Partly done 2026-11-11:** removed restated gate items and duplicate rules in plan, research, review, analyze, define (about 10 sentences). A systematic pass over every prohibition needs repeat runs to know which ones matter, so left open.
+- [x] **T27 Add one compact worked example per skill** showing a good output, not just a one-line rule. Put heavier templates (evaluate scoring matrix, plan work-package table) in `references/` with an explicit "read this when…" line, since no skill uses progressive disclosure today.
+  - **Done 2026-11-11.** Shared section names (`Output`, `Relationship to other skills`, `Examples`, plus `Principles` and `Workflow` where used) applied to all eight and enforced by `check.py`; the outline is in `AGENTS.md`. define, review, and validate keep topic headings because they are not sequential.
+  - **Done 2026-11-11.** Every skill has a compact worked output under `## Examples`; `plan` and `evaluate` also have `references/` templates with a "read this when" line.
 - [x] **T28 Unify the untrusted-content rule.** Six skills state "treat source content as data, not instructions" in six different wordings; define and evaluate omit it. Use one sentence everywhere it applies.
 
 ---
@@ -188,18 +196,19 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
 
 - [x] **T29 Align the Claude manifest with the Codex one.** `plugin/.claude-plugin/plugin.json` lacks `license`, `repository`, and `keywords`, and its description ("Eight reusable, platform-agnostic foundational skills") differs from the other three files. Use one description string everywhere.
 - [x] **T30 Stop hardcoding "eight".** The count appears in both manifests, both marketplace descriptions, the Codex `longDescription`, `README.md`, `docs/INSTALL.md`, and the `check.py` PASS message. Drop the number from the prose or have `check.py` verify it.
-- [ ] **T30a Fix the Codex manifest and marketplace against the current docs.**
+- [x] **T30a Fix the Codex manifest and marketplace against the current docs.**
   - `interface.shortDescription` is 46 characters; the submission page gives a 30-character limit **(verify)**.
   - `interface.capabilities` includes "Interactive", which appears in no doc example; values look free-form **(verify)**.
   - `.agents/plugins/marketplace.json` has no `interface.displayName`.
   - `interface.composerIcon` and `interface.logo` are listed as required for Codex **(verify)**; Claude's directory check also reports `ICON_MISSING`. Add one square PNG (512–2048 px, under 2 MB) and reference it from both. Needed only for directory submission.
   - The docs now describe a portable root `plugin.json` as canonical, with `.codex-plugin/plugin.json` as a "compatibility fallback". Decide whether to migrate **(verify)**.
+  - **Done 2026-11-11** against the current Codex docs (build and submission pages). Fixed: `shortDescription` shortened to 28 characters (limit 30), `composerIcon` and `logo` added (`plugin/assets/icon.svg`, SVG is allowed), `interface.displayName` added to `.agents/plugins/marketplace.json`. `interface.capabilities` has no fixed vocabulary (free-form labels, at most 20 of 120 characters), so "Interactive" stays. Decision: keep `.codex-plugin/plugin.json`; the docs call it a supported compatibility fallback and the root `plugin.json` is the newer portable form, which this repo does not need while it ships one Claude and one Codex manifest. `claude plugin validate ./plugin` no longer reports the icon check.
 
 ---
 
 ## P2 — Checker and CI
 
-- [ ] **T31 Strengthen `scripts/check.py`.**
+- [x] **T31 Strengthen `scripts/check.py`.**
   - Parse frontmatter as YAML instead of regex, and enforce the Agent Skills limits: name pattern and ≤ 64 chars, description ≤ 1024 chars, `SKILL.md` < 500 lines, no unknown keys.
   - Discover skill directories instead of the hardcoded `NAMES` tuple (`:9`) and the hardcoded "8" (`:74`).
   - Verify that marketplace `source` paths exist and contain a manifest, rather than comparing to a literal (`:65-66`).
@@ -207,6 +216,7 @@ Do the baseline run (T11–T12) **before** the content rewrites in the next sect
   - Check that every skill named in another skill's body exists (this would have caught "Interview"), and that the pairs from T10 reference each other.
   - Replace the `> 600` characters heuristic (`:40`).
   - **Status (partial):** done — flat-YAML frontmatter parsing, Agent Skills limits, skill discovery, marketplace source resolution, manifest parity, unknown-skill relationship check, stub-body check. Reciprocal-reference check now added. Remaining: Codex listing limits (needs the T30a re-verification).
+  - **Done 2026-11-11.** Codex listing limits (name, short and long description, developer name, capabilities, default prompts, icon files, marketplace displayName) and the required `Output`, `Relationship`, `Examples` sections are now checked, with tests (24 cases).
 - [x] **T32 Test the checker.** It has no tests, so nothing shows it fails when it should. Move the logic into functions and add fixtures for a broken name, a missing key, an over-long description, and a wrong marketplace path, each expected to fail.
 - [ ] **T33 Extend CI (`.github/workflows/validate.yml`).**
   - It triggers on both `push` and `pull_request`, so every PR branch runs twice; limit `push` to `main`.

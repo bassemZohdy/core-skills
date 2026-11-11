@@ -56,7 +56,7 @@ For validation-only requests, report results without silently changing the targe
 
 For requested iteration, honor the user's cap and stop when relevant criteria are satisfied with no material unresolved concern in scope. Stop unproductive repeats of a blocked check, report its missing prerequisite, and continue checks that do not depend on it. Retries or unchanged reruns are not new evidence of correctness.
 
-## Report the result
+## Output
 
 Give a scoped verdict, supporting criteria and executed checks, actionable failure evidence, and required checks not completed. Identify the final version checked and distinguish artifact defects from environment limitations. Include reproduction details when useful. Claim a save or action succeeded only after observing that result.
 
@@ -64,7 +64,7 @@ Give a scoped verdict, supporting criteria and executed checks, actionable failu
 
 - **Review:** judges quality by inspection and reports findings. Validate runs checks against stated criteria and reports PASS, FAIL, or INCOMPLETE.
 
-## Calibration examples
+## Examples
 
 - **Scoped pass:** A canonical syntax check can establish PASS for a syntax-only request without certifying runtime behavior.
 - **CI cannot start:** Account limits prevent jobs from starting. Required checks are NOT RUN and overall validation is INCOMPLETE; no test assertion failure is demonstrated.

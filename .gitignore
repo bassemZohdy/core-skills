@@ -2,4 +2,4 @@
 plugin/evals/results/
 __pycache__/
 *.pyc
-.eval-run*
+.eval-*

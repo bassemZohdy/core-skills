@@ -64,9 +64,9 @@ Infer sensible non-exclusionary criteria if absent and label them as proposed as
 - **Inconclusive:** No defensible preference can be established from available information.
 - **Blocked:** The target or essential decision context is missing and cannot be reasonably inferred.
 
-## Output guidance
+## Output
 
-Default to a concise explanation of criteria, material evidence, and a recommendation or no-decision. Add a comparison table, gate matrix, scoring matrix, cost scenarios, or sensitivity analysis only when complexity warrants them or the user asks. State which criteria were assumed, not assessed, or user-approved. For scored evaluations, include anchored scale, weights, evidence links, missing data handling, and ranking sensitivity.
+Default to a concise explanation of criteria, material evidence, and a recommendation or no-decision. Add a comparison table, gate matrix, scoring matrix, cost scenarios, or sensitivity analysis only when complexity warrants them or the user asks. For weighted scoring, follow `references/scoring-matrix.md`. State which criteria were assumed, not assessed, or user-approved. For scored evaluations, include anchored scale, weights, evidence links, missing data handling, and ranking sensitivity.
 
 ## Relationship to other skills
 
@@ -75,7 +75,7 @@ Default to a concise explanation of criteria, material evidence, and a recommend
 - **Review:** finds defects and improvements in an artifact. Evaluate judges fitness against a purpose, optionally among alternatives.
 - **Plan:** sequences the work once a route is chosen. Evaluate picks the route when alternatives exist.
 
-## Example
+## Examples
 
 Two options for a self-hosted queue; gate: runs air-gapped.
 
@@ -86,7 +86,6 @@ Two options for a self-hosted queue; gate: runs air-gapped.
 >
 > B edges A (3.8 vs 3.7), a near tie, and is conditional: its air-gapped support is unverified. Confirm it before choosing B; otherwise A. Moving 10 points of weight from ops to cost (30/40/30) flips the order to A 3.6, B 3.5.
 
-## More examples
 
 - **Single option:** Assess a proposed architecture against security, operations, scalability, and budget expectations, noting unknown criteria.
 - **Multiple options:** Apply hard air-gap eligibility before scoring vendors on usability, cost, and support.
