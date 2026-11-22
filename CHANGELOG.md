@@ -10,7 +10,7 @@ All notable changes to this repository. The first tag is `v0.1.0`.
 - Google Antigravity: `plugin/.antigravity-plugin/plugin.json`, valid against Antigravity's published schema.
 - `scripts/check.py` validates the new manifests and marketplace; install notes for Cursor, Copilot, Antigravity, OpenClaw, Gemini CLI and skills-only hosts (OpenCode, Windsurf, Cline, Goose, Amp) in `docs/INSTALL.md` (none of these hosts was run).
 
-- Submitted the repository to the Cursor marketplace and the Claude directory on 2026-11-22 (both pending review).
+- Submitted the repository to the Cursor marketplace and the Claude directory on 2026-11-22 (both pending review), and filled in the Antigravity Marketplace interest form.
 
 ### Changed
 - `evaluate` and `validate` descriptions extended after trigger-eval misses (see `docs/EVALS.md`).
