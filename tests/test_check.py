@@ -175,6 +175,18 @@ class CheckTests(unittest.TestCase):
         self.edit_json("plugin/.cursor-plugin/plugin.json", lambda d: d.update(description="Drifted"))
         self.assertFails("Cursor and Claude manifests differ on description")
 
+    def test_antigravity_version_must_match_codex(self):
+        self.edit_json("plugin/.antigravity-plugin/plugin.json", lambda d: d.update(version="9.9.9"))
+        self.assertFails("Antigravity version must match")
+
+    def test_antigravity_logo_must_exist(self):
+        self.edit_json("plugin/.antigravity-plugin/plugin.json", lambda d: d.update(logo="assets/none.svg"))
+        self.assertFails("Antigravity logo")
+
+    def test_antigravity_description_drift(self):
+        self.edit_json("plugin/.antigravity-plugin/plugin.json", lambda d: d.update(description="Drifted"))
+        self.assertFails("Antigravity and Claude manifests differ on description")
+
     def test_license_mismatch(self):
         self.edit_json("plugin/.claude-plugin/plugin.json", lambda d: d.update(license="MIT"))
         self.assertFails("Claude manifest license mismatch")

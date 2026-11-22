@@ -197,6 +197,24 @@ def check_cursor_and_agent_plugins(root, plugin_dir, claude, errors):
         errors.append("Cursor marketplace: no .cursor-plugin/plugin.json under plugin/")
 
 
+def check_antigravity(plugin_dir, claude, codex, root, errors):
+    """Antigravity manifest; schema at antigravity.google/schemas/v1/plugin.json (checked 2026-11-22)."""
+    ag = load_json(plugin_dir / ".antigravity-plugin" / "plugin.json", root, errors)
+    if ag.get("name") != PLUGIN_NAME or not re.fullmatch(r"[A-Za-z0-9_-]+", ag.get("name", "")):
+        errors.append("Antigravity: wrong plugin name")
+    for key in ("description", "repository", "license"):
+        if ag.get(key) is None or ag.get(key) != claude.get(key):
+            errors.append(f"Antigravity and Claude manifests differ on {key}")
+    if ag.get("version") != codex.get("version"):
+        errors.append("Antigravity version must match the Codex version")
+    logo = ag.get("logo")
+    if not (isinstance(logo, str) and (plugin_dir / logo).is_file()):
+        errors.append("Antigravity logo must be a relative path to an existing file")
+    prompts = ag.get("suggestedPrompts", [])
+    if not (isinstance(prompts, list) and len(prompts) <= 3 and all(isinstance(p, str) and p.strip() for p in prompts)):
+        errors.append("Antigravity suggestedPrompts must be at most 3 non-empty strings")
+
+
 def check_manifests(root, errors):
     plugin_dir = root / "plugin"
     claude = load_json(plugin_dir / ".claude-plugin" / "plugin.json", root, errors)
@@ -236,6 +254,7 @@ def check_manifests(root, errors):
     check_marketplace("Codex", market_codex, root, plugin_dir, Path(".codex-plugin/plugin.json"), errors)
     check_codex_listing(codex, market_codex, plugin_dir, errors)
     check_cursor_and_agent_plugins(root, plugin_dir, claude, errors)
+    check_antigravity(plugin_dir, claude, codex, root, errors)
 
 
 def check_codex_listing(codex, market_codex, plugin_dir, errors):
