@@ -36,6 +36,41 @@ codex plugin add core-skills@core-skills
 
 Or run `codex` and open `/plugins` to browse and install. The Codex plugin manifest is at `plugin/.codex-plugin/plugin.json` and references `./skills/`; the repository marketplace file is `.agents/plugins/marketplace.json`. Mention a skill with `$<skill>` or use `/skills`.
 
+## Cursor
+
+> **Not tested.** Written from the Cursor plugin reference (cursor.com/docs/reference/plugins, read 2026-11-22). No Cursor client was run, and the plugin is not submitted to the Cursor marketplace.
+
+The repository has a Cursor marketplace file at `.cursor-plugin/marketplace.json` and a plugin manifest at `plugin/.cursor-plugin/plugin.json`; the skills are the same `plugin/skills/`. Cursor also loads the Agent Plugins manifest `plugin/plugin.json`. To list it in Cursor's public marketplace, submit the repository at cursor.com/marketplace/publish (the Cursor team reviews submissions; not done).
+
+## GitHub Copilot (VS Code, Copilot CLI, Copilot app)
+
+> **Not tested.** Written from the VS Code and GitHub Docs plugin references (read 2026-11-22). The Copilot CLI was not installed here, so no `copilot plugin` command was run.
+
+These clients read the Agent Plugins 1.0 manifest `plugin/plugin.json` (skills from `plugin/skills/`) and the existing `.claude-plugin/marketplace.json`, so no extra files are needed. In Copilot CLI:
+
+```text
+copilot plugin marketplace add bassemZohdy/core-skills
+copilot plugin install core-skills@core-skills
+```
+
+In VS Code, run **Chat: Install Plugin from Source** with `https://github.com/bassemZohdy/core-skills`, or add the marketplace in the Agent Customizations editor.
+
+## Gemini CLI
+
+> **Not tested.** The local Gemini CLI (0.22.5) predates `gemini skills`, so nothing was run. Written from geminicli.com/docs/cli/skills and /docs/extensions/reference (read 2026-11-22).
+
+There is no Gemini extension. A Gemini extension needs `gemini-extension.json` and a `skills/` directory at the repository root, which would mean a second copy of the skills. Install the skills directly instead:
+
+```text
+gemini skills install https://github.com/bassemZohdy/core-skills.git --path plugin/skills
+```
+
+or copy `plugin/skills/*` to `~/.gemini/skills/` or `~/.agents/skills/` (user) or `.agents/skills/` (workspace).
+
+## Other Agent Skills hosts
+
+Any host that reads the [Agent Skills](https://agentskills.io/) format can use `plugin/skills/` through the skills-only install below. Hosts without a plugin system (for example OpenCode) have no marketplace entry here, and none was tested.
+
 ## Skills only, without the plugin
 
 Copy the skill directories to a user-level skills directory:

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "core-skills",
+  "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating.",
+  "author": {
+    "name": "Bassem Zohdy"
+  },
+  "homepage": "https://github.com/bassemZohdy/core-skills",
+  "repository": "https://github.com/bassemZohdy/core-skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "skills",
+    "reasoning",
+    "research",
+    "review",
+    "validation",
+    "planning"
+  ]
+}
