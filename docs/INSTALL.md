@@ -55,11 +55,33 @@ copilot plugin install core-skills@core-skills
 
 In VS Code, run **Chat: Install Plugin from Source** with `https://github.com/bassemZohdy/core-skills`, or add the marketplace in the Agent Customizations editor.
 
+## Google Antigravity
+
+> **Not tested.** Written from antigravity.google/docs/plugins and /build-plugins and the published manifest schema (read 2026-11-22). `plugin/.antigravity-plugin/plugin.json` validates against that schema, but `agy` was not run. Antigravity replaced Gemini CLI for unpaid and Google One users on 2026-06-18.
+
+`agy plugin install <github-url>` installs from the repository root, where this repo has no plugin, so install the plugin directory from a clone:
+
+```text
+git clone https://github.com/bassemZohdy/core-skills
+agy plugin install ./core-skills/plugin
+```
+
+`.antigravity-plugin/plugin.json` takes precedence over the Agent Plugins `plugin.json` next to it; `agy plugin validate` may warn that the latter is shadowed, which the Antigravity docs call safe. `agy plugin import claude` also migrates a Claude Code install.
+
+## OpenClaw
+
+> **Not tested.** Written from docs.openclaw.ai/plugins/bundles (read 2026-11-22). OpenClaw detects the Claude, Codex, Cursor and Agent Plugins formats as bundles and maps their skills; it reads Claude marketplaces from a git or GitHub source.
+
+```text
+openclaw plugins install core-skills --marketplace bassemZohdy/core-skills
+openclaw plugins inspect core-skills
+```
+
 ## Gemini CLI
 
 > **Not tested.** The local Gemini CLI (0.22.5) predates `gemini skills`, so nothing was run. Written from geminicli.com/docs/cli/skills and /docs/extensions/reference (read 2026-11-22).
 
-There is no Gemini extension. A Gemini extension needs `gemini-extension.json` and a `skills/` directory at the repository root, which would mean a second copy of the skills. Install the skills directly instead:
+There is no Gemini extension: it needs `gemini-extension.json` and a `skills/` directory at the repository root, which would mean a second copy of the skills. Install the skills directly instead:
 
 ```text
 gemini skills install https://github.com/bassemZohdy/core-skills.git --path plugin/skills
@@ -67,9 +89,30 @@ gemini skills install https://github.com/bassemZohdy/core-skills.git --path plug
 
 or copy `plugin/skills/*` to `~/.gemini/skills/` or `~/.agents/skills/` (user) or `.agents/skills/` (workspace).
 
-## Other Agent Skills hosts
+## OpenCode, Windsurf, Cline, Goose, Amp and other skills-only hosts
 
-Any host that reads the [Agent Skills](https://agentskills.io/) format can use `plugin/skills/` through the skills-only install below. Hosts without a plugin system (for example OpenCode) have no marketplace entry here, and none was tested.
+> **Not tested.** These hosts have no marketplace entry here; they read the [Agent Skills](https://agentskills.io/) format. OpenCode's paths are from opencode.ai/docs/skills (read 2026-11-22). The Windsurf, Cline, Goose and Amp paths come from the third-party `skills` CLI's agent table, not from each vendor's docs, so check them first.
+
+Point the host at a clone instead of copying, so `git pull` updates the skills. OpenCode accepts a `skills` list of folders in `opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": ["~/core-skills/plugin/skills"]
+}
+```
+
+For hosts without such a setting, copy `plugin/skills/*` to the host's skills folder:
+
+| Host | Project folder | User folder |
+| --- | --- | --- |
+| OpenCode | `.opencode/skills/` or `.agents/skills/` | `~/.config/opencode/skills/` |
+| Windsurf | `.windsurf/skills/` | `~/.codeium/windsurf/skills/` |
+| Cline | `.cline/skills/` | `~/.cline/skills/` |
+| Goose | `.goose/skills/` | `~/.config/goose/skills/` |
+| Amp | `.agents/skills/` | `~/.config/agents/skills/` |
+
+Other clients listed at agent-plugins.org/compatible-clients (OpenHands, Kiro, Hermes Agent, NanoClaw, Perplexity Computer, Grok Bot) read the root `plugin/plugin.json`. None was checked here, so follow each host's own install page.
 
 ## Skills only, without the plugin
 

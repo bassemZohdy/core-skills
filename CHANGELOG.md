@@ -7,7 +7,8 @@ All notable changes to this repository. The first tag is `v0.1.0`.
 ### Added
 - Cursor: `.cursor-plugin/marketplace.json` and `plugin/.cursor-plugin/plugin.json`.
 - Agent Plugins 1.0 manifest `plugin/plugin.json`, read by GitHub Copilot (VS Code, Copilot CLI) and Cursor; Copilot also reads the existing `.claude-plugin/marketplace.json`.
-- `scripts/check.py` validates the new manifests and marketplace; install notes for Cursor, Copilot and Gemini CLI in `docs/INSTALL.md` (none of the three hosts was run).
+- Google Antigravity: `plugin/.antigravity-plugin/plugin.json`, valid against Antigravity's published schema.
+- `scripts/check.py` validates the new manifests and marketplace; install notes for Cursor, Copilot, Antigravity, OpenClaw, Gemini CLI and skills-only hosts (OpenCode, Windsurf, Cline, Goose, Amp) in `docs/INSTALL.md` (none of these hosts was run).
 
 ### Changed
 - `evaluate` and `validate` descriptions extended after trigger-eval misses (see `docs/EVALS.md`).

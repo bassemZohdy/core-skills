@@ -1,0 +1,19 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "core-skills",
+  "displayName": "Core Skills",
+  "version": "0.1.0",
+  "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating.",
+  "logo": "assets/icon.svg",
+  "suggestedPrompts": [
+    "Research this technical question and distinguish verified facts from uncertainty",
+    "Review this design and prioritize evidence-backed findings",
+    "Validate this change against its acceptance criteria"
+  ],
+  "author": {
+    "name": "Bassem Zohdy"
+  },
+  "homepage": "https://github.com/bassemZohdy/core-skills",
+  "repository": "https://github.com/bassemZohdy/core-skills",
+  "license": "Apache-2.0"
+}
