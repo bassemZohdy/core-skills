@@ -25,6 +25,8 @@ claude --plugin-dir ./plugin
 
 After editing a skill, run `/reload-plugins` in the session. Then inspect the skill list and run one targeted prompt per skill. Plugin skills are invoked as `/core-skills:<skill>`.
 
+> **Submitted to the Claude directory 2026-11-22** (claude.ai/directory/manage, Plugin bundle from `plugin/` on `main`, auto-publish on). The name `core-skills` is held for reviewer checks because it resembles other listings; the plugin is not listed and approval is not guaranteed.
+
 ## Codex / ChatGPT plugin-capable environments
 
 > **Tested 2026-11-11 (Codex 0.167.0, Windows, scratch `CODEX_HOME`):** `codex plugin marketplace add bassemZohdy/core-skills` then `codex plugin add core-skills@core-skills` installed the plugin, enabled, at version 0.1.0 with all eight skills and the icon. A later `codex exec '$plan ...'` run in a signed-in Codex used the skill. Not tested: the interactive `/plugins` browser. The manifest follows the current Codex submission docs, but no Codex validator was run.
@@ -38,9 +40,9 @@ Or run `codex` and open `/plugins` to browse and install. The Codex plugin manif
 
 ## Cursor
 
-> **Not tested.** Written from the Cursor plugin reference (cursor.com/docs/reference/plugins, read 2026-11-22). No Cursor client was run, and the plugin is not submitted to the Cursor marketplace.
+> **Not tested.** Written from the Cursor plugin reference (cursor.com/docs/reference/plugins, read 2026-11-22). No Cursor client was run. **Submitted 2026-11-22** at cursor.com/marketplace/publish (organization `Bassem Zohdy`, handle `bassem-zohdy`, individual publisher); Cursor said it will reply by email after review, so the plugin is not listed yet and acceptance is unknown.
 
-The repository has a Cursor marketplace file at `.cursor-plugin/marketplace.json` and a plugin manifest at `plugin/.cursor-plugin/plugin.json`; the skills are the same `plugin/skills/`. Cursor also loads the Agent Plugins manifest `plugin/plugin.json`. To list it in Cursor's public marketplace, submit the repository at cursor.com/marketplace/publish (the Cursor team reviews submissions; not done).
+The repository has a Cursor marketplace file at `.cursor-plugin/marketplace.json` and a plugin manifest at `plugin/.cursor-plugin/plugin.json`; the skills are the same `plugin/skills/`. Cursor also loads the Agent Plugins manifest `plugin/plugin.json`. The Cursor team reviews submissions before listing.
 
 ## GitHub Copilot (VS Code, Copilot CLI, Copilot app)
 
