@@ -61,6 +61,8 @@ In VS Code, run **Chat: Install Plugin from Source** with `https://github.com/ba
 
 > **Not tested.** Written from antigravity.google/docs/plugins and /build-plugins and the published manifest schema (read 2026-11-22). `plugin/.antigravity-plugin/plugin.json` validates against that schema, but `agy` was not run. Antigravity replaced Gemini CLI for unpaid and Google One users on 2026-06-18.
 
+> **Interest form submitted 2026-11-22** (Antigravity Plugin Interest Form, as an individual publisher). It asks for company details, so a response is not certain; the plugin is not in the Antigravity Marketplace.
+
 `agy plugin install <github-url>` installs from the repository root, where this repo has no plugin, so install the plugin directory from a clone:
 
 ```text
