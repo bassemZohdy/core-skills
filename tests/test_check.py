@@ -10,7 +10,7 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
 import check  # noqa: E402
 
-COPIED = ("plugin", ".claude-plugin", ".agents", "LICENSE", "README.md", "docs/INSTALL.md")
+COPIED = ("plugin", ".claude-plugin", ".agents", ".cursor-plugin", "LICENSE", "README.md", "docs/INSTALL.md")
 
 
 class CheckTests(unittest.TestCase):
@@ -149,6 +149,31 @@ class CheckTests(unittest.TestCase):
     def test_codex_marketplace_display_name(self):
         self.edit_json(".agents/plugins/marketplace.json", lambda d: d.pop("interface"))
         self.assertFails("missing interface.displayName")
+
+    def test_agent_plugins_schema_required(self):
+        self.edit_json("plugin/plugin.json", lambda d: d.update({"$schema": "https://example.com/x.json"}))
+        self.assertFails("must declare the 1.0.0 $schema")
+
+    def test_agent_plugins_closed_schema(self):
+        self.edit_json("plugin/plugin.json", lambda d: d.update(skills="./skills/"))
+        self.assertFails("unknown fields ['skills']")
+
+    def test_agent_plugins_missing_manifest(self):
+        (self.root / "plugin" / "plugin.json").unlink()
+        self.assertFails("plugin/plugin.json")
+
+    def test_cursor_marketplace_wrong_path(self):
+        self.edit_json(".cursor-plugin/marketplace.json",
+                       lambda d: d["plugins"][0].update(source="elsewhere"))
+        self.assertFails("Cursor marketplace: source must be")
+
+    def test_cursor_logo_must_exist(self):
+        self.edit_json("plugin/.cursor-plugin/plugin.json", lambda d: d.update(logo="assets/missing.svg"))
+        self.assertFails("Cursor logo")
+
+    def test_cursor_description_drift(self):
+        self.edit_json("plugin/.cursor-plugin/plugin.json", lambda d: d.update(description="Drifted"))
+        self.assertFails("Cursor and Claude manifests differ on description")
 
     def test_license_mismatch(self):
         self.edit_json("plugin/.claude-plugin/plugin.json", lambda d: d.update(license="MIT"))

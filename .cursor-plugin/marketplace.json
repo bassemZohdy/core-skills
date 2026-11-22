@@ -1,0 +1,16 @@
+{
+  "name": "core-skills",
+  "owner": {
+    "name": "Bassem Zohdy"
+  },
+  "metadata": {
+    "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating."
+  },
+  "plugins": [
+    {
+      "name": "core-skills",
+      "source": "plugin",
+      "description": "Portable, independent skills for defining, researching, analyzing, evaluating, reviewing, validating, planning, and investigating."
+    }
+  ]
+}

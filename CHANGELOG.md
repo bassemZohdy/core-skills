@@ -2,6 +2,16 @@
 
 All notable changes to this repository. The first tag is `v0.1.0`.
 
+## Unreleased
+
+### Added
+- Cursor: `.cursor-plugin/marketplace.json` and `plugin/.cursor-plugin/plugin.json`.
+- Agent Plugins 1.0 manifest `plugin/plugin.json`, read by GitHub Copilot (VS Code, Copilot CLI) and Cursor; Copilot also reads the existing `.claude-plugin/marketplace.json`.
+- `scripts/check.py` validates the new manifests and marketplace; install notes for Cursor, Copilot and Gemini CLI in `docs/INSTALL.md` (none of the three hosts was run).
+
+### Changed
+- `evaluate` and `validate` descriptions extended after trigger-eval misses (see `docs/EVALS.md`).
+
 ## 0.1.0 - 2026-11-11
 
 ### Added

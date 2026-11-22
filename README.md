@@ -31,6 +31,8 @@ codex plugin marketplace add bassemZohdy/core-skills
 
 then open `/plugins` in the Codex CLI.
 
+Cursor, GitHub Copilot (VS Code and Copilot CLI) and Gemini CLI: see [docs/INSTALL.md](docs/INSTALL.md). Those packages follow each vendor's published plugin format but have not been installed or run on those hosts.
+
 ## Use
 
 - Claude Code: plugin skills are namespaced, for example `/core-skills:plan`. Skills also load automatically when a task matches their description.
@@ -38,7 +40,7 @@ then open `/plugins` in the Codex CLI.
 
 ## Layout
 
-Canonical skill definitions are in `plugin/skills/<name>/SKILL.md`; both the Claude plugin (`plugin/.claude-plugin/`) and the Codex plugin (`plugin/.codex-plugin/`) point at that one directory. Do not copy the definitions into platform-specific folders.
+Canonical skill definitions are in `plugin/skills/<name>/SKILL.md`; the Claude (`plugin/.claude-plugin/`), Codex (`plugin/.codex-plugin/`), Cursor (`plugin/.cursor-plugin/`) and Agent Plugins (`plugin/plugin.json`, read by Copilot) manifests all point at that one directory. Do not copy the definitions into platform-specific folders.
 
 ## Development
 

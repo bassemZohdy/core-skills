@@ -22,6 +22,7 @@ MAX_LINES = 500
 MIN_BODY_WORDS = 200
 EXPECTED_LICENSE = "Apache-2.0"
 PLUGIN_NAME = "core-skills"
+AGENT_PLUGINS_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
 # Bold labels that appear in relationship sections but are not skills.
 NON_SKILL_TERMS = set()
 RELATIONSHIP_HEADINGS = ("Boundaries", "Boundaries and integration")
@@ -151,6 +152,51 @@ def check_marketplace(label, marketplace, root, plugin_dir, manifest_rel, errors
         errors.append(f"{label}: no {manifest_rel} under {source!r}")
 
 
+def check_cursor_and_agent_plugins(root, plugin_dir, claude, errors):
+    """Agent Plugins 1.0 manifest (Cursor, VS Code, Copilot) and the Cursor listing.
+
+    Formats checked against code.visualstudio.com, docs.github.com and cursor.com docs on
+    2026-11-22; no client was run. The Agent Plugins name rule is 1-64 of [a-z0-9.-], no `--`/`..`.
+    """
+    agent = load_json(plugin_dir / "plugin.json", root, errors)
+    cursor = load_json(plugin_dir / ".cursor-plugin" / "plugin.json", root, errors)
+    market = load_json(root / ".cursor-plugin" / "marketplace.json", root, errors)
+    if agent.get("$schema") != AGENT_PLUGINS_SCHEMA:
+        errors.append("Agent Plugins: plugin/plugin.json must declare the 1.0.0 $schema")
+    allowed = {"$schema", "name", "version", "description", "author", "homepage",
+               "repository", "license", "keywords", "extensions"}
+    extra = sorted(set(agent) - allowed)
+    if extra:
+        errors.append(f"Agent Plugins: closed schema, unknown fields {extra}")
+    for label, manifest in (("Agent Plugins", agent), ("Cursor", cursor)):
+        if manifest.get("name") != PLUGIN_NAME:
+            errors.append(f"{label}: wrong plugin name")
+        if manifest.get("license") != EXPECTED_LICENSE:
+            errors.append(f"{label} manifest license mismatch")
+        for key in ("description", "repository", "keywords"):
+            if manifest.get(key) is None or manifest.get(key) != claude.get(key):
+                errors.append(f"{label} and Claude manifests differ on {key}")
+    if cursor.get("skills") != "./skills/":
+        errors.append("Cursor skill path must be ./skills/")
+    logo = cursor.get("logo")
+    if not (isinstance(logo, str) and (plugin_dir / logo).is_file()):
+        errors.append("Cursor logo must be a relative path to an existing file")
+    entries = market.get("plugins", [])
+    if market.get("name") != PLUGIN_NAME or not market.get("owner", {}).get("name"):
+        errors.append("Cursor marketplace: needs name and owner.name")
+    if not (isinstance(entries, list) and len(entries) == 1 and isinstance(entries[0], dict)):
+        errors.append("Cursor marketplace: expected one plugin entry")
+        return
+    entry = entries[0]
+    source = entry.get("source")
+    if entry.get("name") != PLUGIN_NAME:
+        errors.append("Cursor marketplace: entry name mismatch")
+    if not (isinstance(source, str) and (root / source).resolve() == plugin_dir.resolve()):
+        errors.append("Cursor marketplace: source must be the relative path to plugin/")
+    elif not (plugin_dir / ".cursor-plugin" / "plugin.json").is_file():
+        errors.append("Cursor marketplace: no .cursor-plugin/plugin.json under plugin/")
+
+
 def check_manifests(root, errors):
     plugin_dir = root / "plugin"
     claude = load_json(plugin_dir / ".claude-plugin" / "plugin.json", root, errors)
@@ -189,6 +235,7 @@ def check_manifests(root, errors):
     check_marketplace("Claude", market_claude, root, plugin_dir, Path(".claude-plugin/plugin.json"), errors)
     check_marketplace("Codex", market_codex, root, plugin_dir, Path(".codex-plugin/plugin.json"), errors)
     check_codex_listing(codex, market_codex, plugin_dir, errors)
+    check_cursor_and_agent_plugins(root, plugin_dir, claude, errors)
 
 
 def check_codex_listing(codex, market_codex, plugin_dir, errors):
